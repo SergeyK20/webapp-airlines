@@ -1,16 +1,12 @@
 package connection;
 
 import org.apache.commons.dbcp.BasicDataSource;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class ConnectionPool {
+public final class  ConnectionPool {
     private ConnectionPool() {
     }
 

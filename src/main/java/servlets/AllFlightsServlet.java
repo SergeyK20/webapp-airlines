@@ -24,16 +24,6 @@ import java.util.List;
 
 public class AllFlightsServlet extends HttpServlet {
     /**
-     * Переменная указывает на страницу перехода.
-     */
-    String transitionPage;
-
-    /**
-     * Переменная указыващая на команду для действия сервлета.
-     */
-    EnumMethods command;
-
-    /**
      * При обращении к серверу со стороны страницы airlines.jsp, addAirlines.jsp, updateAirlines.jsp
      * переходит при запросе GET в данный метод
      *
@@ -42,8 +32,9 @@ public class AllFlightsServlet extends HttpServlet {
      */
     protected void doGet(HttpServletRequest req, HttpServletResponse res) {
         // присваиваем переменной command апраметр command
-        command = EnumMethods.valueOf(req.getParameter("command"));
-        processRequest(req, res);
+        EnumMethods command = EnumMethods.valueOf(req.getParameter("command"));
+        String transitionPage = "";
+        processRequest(req, res, command,transitionPage);
     }
 
     /**
@@ -55,17 +46,18 @@ public class AllFlightsServlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest req, HttpServletResponse res) {
         // присваиваем переменной command апраметр command
-        command = EnumMethods.valueOf(req.getParameter("command"));
-        processRequest(req, res);
+        EnumMethods command = EnumMethods.valueOf(req.getParameter("command"));
+        String transitionPage = "";
+        processRequest(req, res, command,transitionPage);
     }
 
     /**
      * Метод который позволяет перейти в один из методов изменения таблицы.
      * При обнаружении ошибки заходит в поле catch и задает атрибут "errorMessage", который является сообщение, выводим на странице
      */
-    private void processRequest(HttpServletRequest req, HttpServletResponse res) {
+    private void processRequest(HttpServletRequest req, HttpServletResponse res, EnumMethods command, String transitionPage ) {
         try (Connection connection = ConnectionPool.getConnection()) {
-            actionSelectionToGet(req, res, connection);
+            actionSelectionToGet(req, res, connection,command,transitionPage);
         } catch (IllegalStateException e){
             System.out.println("incomprehensible mistake");
         }
@@ -73,10 +65,10 @@ public class AllFlightsServlet extends HttpServlet {
             e.printStackTrace();
             // задаем атрибут ошибки(сообщене которое будет выводится
             req.setAttribute("errorMessage", e.getMessage());
-            processExceptions(req, res);
+            processExceptions(req, res, command,transitionPage);
         } catch (DepartureAndArrivalCityAreTheSameException | BlankFieldException e) {
             req.setAttribute("errorMessage", e.getMessage());
-            processExceptions(req, res);
+            processExceptions(req, res, command,transitionPage);
         }
     }
 
@@ -84,28 +76,28 @@ public class AllFlightsServlet extends HttpServlet {
      * После обнаружения ошибки указывает путь к странице, к которой нужно вернуться с сообщение об ошибке.
      * Переменная command указывает, на то какие араметры должны передаться на страницу вместе с сообщением об ошибке
      */
-    private void processExceptions(HttpServletRequest req, HttpServletResponse res) {
+    private void processExceptions(HttpServletRequest req, HttpServletResponse res, EnumMethods command, String transitionPage) {
         switch (command) {
             case create:
                 transitionPage = "airlinesJSP/addAirlines.jsp";
                 command = EnumMethods.getListRouteAndPlane;
-                processRequest(req, res);
+                processRequest(req, res,command,transitionPage);
                 break;
             case insert:
                 transitionPage = req.getParameter("transitionPage");
                 command = EnumMethods.getListRouteAndPlane;
-                processRequest(req, res);
+                processRequest(req, res,command,transitionPage);
                 break;
             case delete:
             case search:
             case sort:
                 command = EnumMethods.getList;
-                processRequest(req, res);
+                processRequest(req, res,command,transitionPage);
                 break;
             case update:
                 transitionPage = "airlinesJSP/updateAirlines.jsp";
                 command = EnumMethods.getListRouteAndPlane;
-                processRequest(req, res);
+                processRequest(req, res,command,transitionPage);
                 break;
             default:
                 break;
@@ -120,32 +112,32 @@ public class AllFlightsServlet extends HttpServlet {
      * @throws SQLException                               ошибка работы с БД.
      * @throws DepartureAndArrivalCityAreTheSameException ошибка равенства городов отправдения и прибытия.
      */
-    private void actionSelectionToGet(HttpServletRequest req, HttpServletResponse res, Connection connection) throws BlankFieldException, SQLException, DepartureAndArrivalCityAreTheSameException,IllegalStateException {
+    private void actionSelectionToGet(HttpServletRequest req, HttpServletResponse res, Connection connection, EnumMethods command, String transitionPage) throws BlankFieldException, SQLException, DepartureAndArrivalCityAreTheSameException,IllegalStateException {
         switch (command) {
             case getList:
             case drop:
-                getList(req, res, connection);
+                getList(req, res, connection,transitionPage);
                 break;
             case getListRouteAndPlane:
-                getListRouteAndPlane(req, res, connection);
+                getListRouteAndPlane(req, res, connection,transitionPage);
                 break;
             case create:
-                create(req, res, connection);
+                create(req, res, connection, command, transitionPage);
                 break;
             case delete:
-                remove(req, res, connection);
+                remove(req, res, connection, command, transitionPage);
                 break;
             case update:
-                update(req, res, connection);
+                update(req, res, connection, command, transitionPage);
                 break;
             case search:
-                search(req, res, connection);
+                search(req, res, connection, transitionPage);
                 break;
             case sort:
-                sort(req, res, connection);
+                sort(req, res, connection, transitionPage);
                 break;
             case insert:
-                insert(req, res, connection);
+                insert(req, res, connection, command, transitionPage);
                 break;
             default:
                 break;
@@ -156,15 +148,15 @@ public class AllFlightsServlet extends HttpServlet {
     /**
      * Делает запрос на возващение всех авиарейсов, помещает его в атрибут и перенаправляет на страницу airlines.jsp.
      */
-    private void getList(HttpServletRequest req, HttpServletResponse res, Connection connection) throws SQLException,IllegalStateException {
+    private void getList(HttpServletRequest req, HttpServletResponse res, Connection connection, String transitionPage) throws SQLException,IllegalStateException {
         FlightsDAO air = new FlightsDAO(connection);
         List<Flights> list = air.findAll();
         req.setAttribute("list", list);
         transitionPage = "airlinesJSP/airlines.jsp";
-        goToThePage(req, res);
+        goToThePage(req, res,transitionPage);
     }
 
-    private void goToThePage(HttpServletRequest req, HttpServletResponse res) throws IllegalStateException{
+    private void goToThePage(HttpServletRequest req, HttpServletResponse res, String transitionPage) throws IllegalStateException{
         try {
             req.getRequestDispatcher(transitionPage).forward(req, res);
             transitionPage = "";
@@ -178,7 +170,7 @@ public class AllFlightsServlet extends HttpServlet {
     /**
      * Делает запрос на возващение всех рейсов и самолетов, помещает их в атрибуты и перенаправляет на страницу addAirlines.jsp или updateAirlines.jsp.
      */
-    private void getListRouteAndPlane(HttpServletRequest req, HttpServletResponse res, Connection connection) throws SQLException {
+    private void getListRouteAndPlane(HttpServletRequest req, HttpServletResponse res, Connection connection, String transitionPage) throws SQLException {
         String param = "";
         //если значение параметра не null, то присваиваем его переменной transitionPage
         if (req.getParameter("transitionPage") != null) {
@@ -195,7 +187,7 @@ public class AllFlightsServlet extends HttpServlet {
         PlaneDAO planeDAO = new PlaneDAO(connection);
         List<Plane> list1 = planeDAO.findAll();
         req.setAttribute("list1", list1);
-        goToThePage(req, res);
+        goToThePage(req, res,transitionPage);
     }
 
     /**
@@ -212,7 +204,7 @@ public class AllFlightsServlet extends HttpServlet {
     /**
      * Метод создания нового рейса.
      */
-    private void create(HttpServletRequest req, HttpServletResponse res, Connection connection) throws DepartureAndArrivalCityAreTheSameException, SQLException, BlankFieldException, NumberFormatException {
+    private void create(HttpServletRequest req, HttpServletResponse res, Connection connection, EnumMethods command, String transitionPage ) throws DepartureAndArrivalCityAreTheSameException, SQLException, BlankFieldException, NumberFormatException {
         if ((req.getParameter("id_flight").equals("")) || (req.getParameter("date").equals("")) || (req.getParameter("time").equals(""))) {
             StringBuilder messageException = new StringBuilder("Not filled in key field ");
             if (req.getParameter("id_flight").equals("")) {
@@ -239,14 +231,14 @@ public class AllFlightsServlet extends HttpServlet {
             flight.setPlane(plane);
             flightsDAO.create(flight);
             command = EnumMethods.getList;
-            actionSelectionToGet(req, res, connection);
+            actionSelectionToGet(req, res, connection,command,transitionPage);
         }
     }
 
     /**
      * Метод изменения рейса.
      */
-    private void update(HttpServletRequest req, HttpServletResponse res, Connection connection) throws DepartureAndArrivalCityAreTheSameException, SQLException, BlankFieldException {
+    private void update(HttpServletRequest req, HttpServletResponse res, Connection connection, EnumMethods command, String transitionPage) throws DepartureAndArrivalCityAreTheSameException, SQLException, BlankFieldException {
         if ((req.getParameter("id").equals("")) || (req.getParameter("id_flight").equals("")) || (req.getParameter("date").equals("")) || (req.getParameter("time").equals(""))) {
             StringBuilder messageException = new StringBuilder("Not filled in key field ");
             if (req.getParameter("id_flight").equals("")) {
@@ -274,14 +266,14 @@ public class AllFlightsServlet extends HttpServlet {
             flight.setPlane(plane);
             flightsDAO.update(flight);
             command = EnumMethods.getList;
-            actionSelectionToGet(req, res, connection);
+            actionSelectionToGet(req, res, connection,command,transitionPage);
         }
     }
 
     /**
      * Метод удаления рейса.
      */
-    private void remove(HttpServletRequest req, HttpServletResponse res, Connection connection) throws SQLException, BlankFieldException, DepartureAndArrivalCityAreTheSameException {
+    private void remove(HttpServletRequest req, HttpServletResponse res, Connection connection, EnumMethods command, String transitionPage) throws SQLException, BlankFieldException, DepartureAndArrivalCityAreTheSameException {
         if (req.getParameter("id") == null) {
             throw new BlankFieldException("No value selected");
         } else {
@@ -289,7 +281,7 @@ public class AllFlightsServlet extends HttpServlet {
             FlightsDAO flightsDAO = new FlightsDAO(connection);
             flightsDAO.delete(id);
             command = EnumMethods.getList;
-            actionSelectionToGet(req, res, connection);
+            actionSelectionToGet(req, res, connection, command, transitionPage);
         }
     }
 
@@ -298,21 +290,21 @@ public class AllFlightsServlet extends HttpServlet {
      *
      * @param req Принимаем от клиента два парметра: text_search - фильтр поиска; name_field - поле фильтра поиска.
      */
-    private void search(HttpServletRequest req, HttpServletResponse res, Connection connection) throws SQLException, BlankFieldException, DepartureAndArrivalCityAreTheSameException {
+    private void search(HttpServletRequest req, HttpServletResponse res, Connection connection,String transitionPage) throws SQLException, BlankFieldException, DepartureAndArrivalCityAreTheSameException {
         if (req.getParameter("text_search").equals("")) {
             throw new BlankFieldException("No value entered");
         } else {
             String search_line = req.getParameter("text_search");
             String name_field = req.getParameter("name_field");
             String requestSQL = createSQLSearch(name_field, search_line);
-            getListSearchAndSort(req, res, connection, requestSQL);
+            getListSearchAndSort(req, res, connection, requestSQL,transitionPage);
         }
     }
 
     /**
      * Метод делающий запрос DAO по поиску необходимых рейсов, помещая их в атрибут, переводит на страницу airlines.jsp.
      */
-    private void getListSearchAndSort(HttpServletRequest req, HttpServletResponse res, Connection connection, String requestSQL) throws SQLException, BlankFieldException {
+    private void getListSearchAndSort(HttpServletRequest req, HttpServletResponse res, Connection connection, String requestSQL, String transitionPage) throws SQLException, BlankFieldException {
         FlightsDAO flightsDAO = new FlightsDAO(connection);
         List<Flights> list = flightsDAO.findByField(requestSQL);
         if (list.size() == 0) {
@@ -320,7 +312,7 @@ public class AllFlightsServlet extends HttpServlet {
         } else {
             req.setAttribute("list", list);
             transitionPage = "airlinesJSP/airlines.jsp";
-            goToThePage(req,res);
+            goToThePage(req,res,transitionPage);
         }
     }
 
@@ -358,11 +350,11 @@ public class AllFlightsServlet extends HttpServlet {
     /**
      * Метод вставки.
      */
-    private void sort(HttpServletRequest req, HttpServletResponse res, Connection connection) throws SQLException, BlankFieldException, DepartureAndArrivalCityAreTheSameException {
+    private void sort(HttpServletRequest req, HttpServletResponse res, Connection connection,String transitionPage) throws SQLException, BlankFieldException, DepartureAndArrivalCityAreTheSameException {
         String field_name = req.getParameter("field_name");
         String view = req.getParameter("view");
         String sortSQL = createSQLSort(field_name, view);
-        getListSearchAndSort(req, res, connection, sortSQL);
+        getListSearchAndSort(req, res, connection, sortSQL,transitionPage);
     }
 
     /**
@@ -403,12 +395,12 @@ public class AllFlightsServlet extends HttpServlet {
     /**
      * Метод вставки.
      */
-    private void insert(HttpServletRequest req, HttpServletResponse res, Connection connection) throws SQLException, BlankFieldException, DepartureAndArrivalCityAreTheSameException {
+    private void insert(HttpServletRequest req, HttpServletResponse res, Connection connection,EnumMethods command, String transitionPage) throws SQLException, BlankFieldException, DepartureAndArrivalCityAreTheSameException {
         if ((req.getParameter("id_copy") == null) || (req.getParameter("id_copy").equals(""))) {
             throw new BlankFieldException("No copy object");
         } else {
             command = EnumMethods.getListRouteAndPlane;
-            actionSelectionToGet(req, res, connection);
+            actionSelectionToGet(req, res, connection, command, transitionPage);
         }
     }
 }
