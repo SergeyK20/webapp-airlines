@@ -70,7 +70,7 @@
         <% int i = 1;%>
     <table class="w3-table w3-bordered w3-striped w3-hoverable">
         <tr class="w3-grey">
-            <td><c:out value="Сортировка"/></td>
+            <td><c:out value="Sort"/></td>
             <td>
                 <form action="${pageContext.request.contextPath}/route" method="post">
                     <input type="hidden" name="command" value="sort">
