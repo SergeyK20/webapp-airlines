@@ -1,8 +1,6 @@
 package dao;
 
 import dto.City;
-import dto.Plane;
-import dto.TypePlane;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -26,7 +24,7 @@ public class CityDAO extends AbstractDAO<Integer,City> {
         while(resultSet.next()){
             City city = new City();
             city.setId(resultSet.getInt(1));
-            city.setName_city(resultSet.getString(2));
+            city.setNameCity(resultSet.getString(2));
             list.add(city);
         }
         pst.close();
@@ -45,7 +43,7 @@ public class CityDAO extends AbstractDAO<Integer,City> {
         while(resultSet.next()){
             City city = new City();
             city.setId(resultSet.getInt(1));
-            city.setName_city(resultSet.getString(2));
+            city.setNameCity(resultSet.getString(2));
             list.add(city);
         }
         return list;
@@ -63,7 +61,7 @@ public class CityDAO extends AbstractDAO<Integer,City> {
         System.out.println("nenf");
         while (resultSet.next()) {
             city.setId(resultSet.getInt(1));
-            city.setName_city(resultSet.getString(2));
+            city.setNameCity(resultSet.getString(2));
         }
         return city;
     }
@@ -83,7 +81,7 @@ public class CityDAO extends AbstractDAO<Integer,City> {
         PreparedStatement pst = null;
         String sqlCreateCity = "INSERT INTO airlines.city (name_city) Values (?)";
         pst = connection.prepareStatement(sqlCreateCity);
-        pst.setString(1,entity.getName_city());
+        pst.setString(1,entity.getNameCity());
         pst.executeUpdate();
         return true;
     }
@@ -94,7 +92,7 @@ public class CityDAO extends AbstractDAO<Integer,City> {
         String sqlCreateCity = "update airlines.city set name_city = ? where Id= ?;";
         pst = connection.prepareStatement(sqlCreateCity);
         pst.setInt(2,entity.getId());
-        pst.setString(1,entity.getName_city());
+        pst.setString(1,entity.getNameCity());
         pst.executeUpdate();
         return true;
 

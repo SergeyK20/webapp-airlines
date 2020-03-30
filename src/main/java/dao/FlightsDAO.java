@@ -34,7 +34,7 @@ public class FlightsDAO extends AbstractDAO<Integer, Flights> {
         while (resultSet.next()) {
             Flights flights = new Flights();
             flights.setId(resultSet.getInt(1));
-            flights.setId_airlines(resultSet.getInt(2));
+            flights.setIdAirlines(resultSet.getInt(2));
             City city_from = new City(resultSet.getInt(4), resultSet.getString(6));
             City city_to = new City(resultSet.getInt(5), resultSet.getString(7));
             Route route = new Route(resultSet.getInt(3), city_from, city_to, resultSet.getInt(8));
@@ -60,7 +60,7 @@ public class FlightsDAO extends AbstractDAO<Integer, Flights> {
         while (resultSet.next()) {
             Flights flights = new Flights();
             flights.setId(resultSet.getInt(1));
-            flights.setId_airlines(resultSet.getInt(2));
+            flights.setIdAirlines(resultSet.getInt(2));
             City city_from = new City(resultSet.getInt(4), resultSet.getString(6));
             City city_to = new City(resultSet.getInt(5), resultSet.getString(7));
             Route route = new Route(resultSet.getInt(3), city_from, city_to, resultSet.getInt(8));
@@ -87,7 +87,7 @@ public class FlightsDAO extends AbstractDAO<Integer, Flights> {
         while (resultSet.next()) {
             flights = new Flights();
             flights.setId(resultSet.getInt(1));
-            flights.setId_airlines(resultSet.getInt(2));
+            flights.setIdAirlines(resultSet.getInt(2));
             City city_from = new City(resultSet.getInt(4), resultSet.getString(6));
             City city_to = new City(resultSet.getInt(5), resultSet.getString(7));
             Route route = new Route(resultSet.getInt(3), city_from, city_to, resultSet.getInt(8));
@@ -116,7 +116,7 @@ public class FlightsDAO extends AbstractDAO<Integer, Flights> {
         PreparedStatement pst = null;
         String sqlCreateRoute = "INSERT INTO airlines.flights (id_flights, id_route, date, time, id_plane) VALUES (?,?,?,?,?)";
         pst = connection.prepareStatement(sqlCreateRoute);
-        pst.setInt(1, entity.getId_airlines());
+        pst.setInt(1, entity.getIdAirlines());
         pst.setInt(2, entity.getRoute().getId());
         pst.setDate(3, java.sql.Date.valueOf(entity.getDate()));
         pst.setTime(4, java.sql.Time.valueOf(entity.getTime()));
@@ -130,7 +130,7 @@ public class FlightsDAO extends AbstractDAO<Integer, Flights> {
         PreparedStatement pst = null;
         String sqlUpdateRoute = "UPDATE airlines.flights SET id_flights = ?, id_route = ?, date = ?, time = ?, id_plane = ? where Id= ?;";
         pst = connection.prepareStatement(sqlUpdateRoute);
-        pst.setInt(1, entity.getId_airlines());
+        pst.setInt(1, entity.getIdAirlines());
         pst.setInt(2, entity.getRoute().getId());
         pst.setDate(3, java.sql.Date.valueOf(entity.getDate()));
         pst.setTime(4, java.sql.Time.valueOf(entity.getTime()));

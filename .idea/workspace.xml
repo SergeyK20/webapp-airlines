@@ -7,11 +7,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="721cc570-d0dd-4f12-8bdf-fbdbb932f441" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/webapp-airlines.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/connection/ConnectionPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/connection/ConnectionPool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/CityDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/CityDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/FlightsDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/FlightsDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/PlaneDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/PlaneDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/TypePlaneDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/TypePlaneDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dto/City.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dto/City.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dto/Flights.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dto/Flights.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dto/Plane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dto/Plane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dto/TypePlane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dto/TypePlane.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/servlets/AllFlightsServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlets/AllFlightsServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/servlets/CityServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlets/CityServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/servlets/EnumMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlets/EnumMethods.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/servlets/PlaneServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlets/PlaneServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/servlets/RouteServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlets/RouteServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/servlets/TypePlaneServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlets/TypePlaneServlet.java" afterDir="false" />
@@ -40,6 +52,12 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
   </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
@@ -72,6 +90,8 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="SONARLINT_PRECOMMIT_ANALYSIS" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="node.js.detected.package.eslint" value="true" />
@@ -80,9 +100,10 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="project.structure.last.edited" value="Artifacts" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.345977" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunManager" selected="Tomcat Server.Server-Tomcat">
     <configuration name="Load DB" type="Application" factoryName="Application">
@@ -263,6 +284,8 @@
       <workItem from="1585267584348" duration="3590000" />
       <workItem from="1585309352114" duration="8012000" />
       <workItem from="1585394499245" duration="5819000" />
+      <workItem from="1585557270219" duration="334000" />
+      <workItem from="1585557621666" duration="1476000" />
     </task>
     <servers />
   </component>
@@ -282,6 +305,14 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="479" y="229" width="408" height="288" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1366.738@0.0.1366.738" timestamp="1585395375199" />
+    <state x="714" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1585557902377">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="714" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1585557902377" />
+    <state x="585" y="134" key="CommitChangelistDialog2" timestamp="1585559140366">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="585" y="134" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1585559140366" />
     <state x="421" y="531" width="905" height="170" key="GridCell.Tab.-1.bottom" timestamp="1585314401714">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -378,14 +409,16 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="905" height="487" key="GridCell.Tab.6.right/0.0.1366.738@0.0.1366.738" timestamp="1585268397085" />
-    <state x="69" y="0" key="SettingsEditor" timestamp="1585269335662">
-      <screen x="0" y="0" width="1366" height="738" />
+    <state x="97" y="0" key="SettingsEditor" timestamp="1585557604573">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="69" y="0" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1585269335662" />
-    <state x="379" y="194" key="com.intellij.ide.util.TipDialog" timestamp="1585394723783">
-      <screen x="0" y="0" width="1366" height="738" />
+    <state x="97" y="0" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1585557604573" />
+    <state x="533" y="284" key="com.intellij.ide.util.TipDialog" timestamp="1585557645651">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="379" y="194" key="com.intellij.ide.util.TipDialog/0.0.1366.738@0.0.1366.738" timestamp="1585394723783" />
+    <state x="533" y="284" key="com.intellij.ide.util.TipDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1585557645651" />
     <state x="421" y="531" width="921" height="235" key="dock-window-1" timestamp="1585314449734">
       <screen x="0" y="0" width="1366" height="738" />
     </state>

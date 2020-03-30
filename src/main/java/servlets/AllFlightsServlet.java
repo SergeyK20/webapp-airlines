@@ -78,25 +78,25 @@ public class AllFlightsServlet extends HttpServlet {
      */
     private void processExceptions(HttpServletRequest req, HttpServletResponse res, EnumMethods command, String transitionPage) {
         switch (command) {
-            case create:
+            case CREATE:
                 transitionPage = "airlinesJSP/addAirlines.jsp";
-                command = EnumMethods.getListRouteAndPlane;
+                command = EnumMethods.GET_LIST_ROUTE_AND_PLANE;
                 processRequest(req, res,command,transitionPage);
                 break;
-            case insert:
+            case INSERT:
                 transitionPage = req.getParameter("transitionPage");
-                command = EnumMethods.getListRouteAndPlane;
+                command = EnumMethods.GET_LIST_ROUTE_AND_PLANE;
                 processRequest(req, res,command,transitionPage);
                 break;
-            case delete:
-            case search:
-            case sort:
-                command = EnumMethods.getList;
+            case DELETE:
+            case SEARCH:
+            case SORT:
+                command = EnumMethods.GET_LIST;
                 processRequest(req, res,command,transitionPage);
                 break;
-            case update:
+            case UPDATE:
                 transitionPage = "airlinesJSP/updateAirlines.jsp";
-                command = EnumMethods.getListRouteAndPlane;
+                command = EnumMethods.GET_LIST_ROUTE_AND_PLANE;
                 processRequest(req, res,command,transitionPage);
                 break;
             default:
@@ -112,31 +112,31 @@ public class AllFlightsServlet extends HttpServlet {
      * @throws SQLException                               ошибка работы с БД.
      * @throws DepartureAndArrivalCityAreTheSameException ошибка равенства городов отправдения и прибытия.
      */
-    private void actionSelectionToGet(HttpServletRequest req, HttpServletResponse res, Connection connection, EnumMethods command, String transitionPage) throws BlankFieldException, SQLException, DepartureAndArrivalCityAreTheSameException,IllegalStateException {
+    private void actionSelectionToGet(HttpServletRequest req, HttpServletResponse res, Connection connection, EnumMethods command, String transitionPage) throws BlankFieldException, SQLException, DepartureAndArrivalCityAreTheSameException, IllegalStateException {
         switch (command) {
-            case getList:
-            case drop:
+            case GET_LIST:
+            case DROP:
                 getList(req, res, connection,transitionPage);
                 break;
-            case getListRouteAndPlane:
+            case GET_LIST_ROUTE_AND_PLANE:
                 getListRouteAndPlane(req, res, connection,transitionPage);
                 break;
-            case create:
+            case CREATE:
                 create(req, res, connection, command, transitionPage);
                 break;
-            case delete:
+            case DELETE:
                 remove(req, res, connection, command, transitionPage);
                 break;
-            case update:
+            case UPDATE:
                 update(req, res, connection, command, transitionPage);
                 break;
-            case search:
+            case SEARCH:
                 search(req, res, connection, transitionPage);
                 break;
-            case sort:
+            case SORT:
                 sort(req, res, connection, transitionPage);
                 break;
-            case insert:
+            case INSERT:
                 insert(req, res, connection, command, transitionPage);
                 break;
             default:
@@ -222,7 +222,7 @@ public class AllFlightsServlet extends HttpServlet {
             Route route = new Route();
             Flights flight = new Flights();
             FlightsDAO flightsDAO = new FlightsDAO(connection);
-            flight.setId_airlines(Integer.parseInt(req.getParameter("id_flight")));
+            flight.setIdAirlines(Integer.parseInt(req.getParameter("id_flight")));
             route.setId(Integer.parseInt(req.getParameter("route")));
             flight.setDate(LocalDate.parse(req.getParameter("date")));
             flight.setTime(LocalTime.parse(req.getParameter("time")));
@@ -230,7 +230,7 @@ public class AllFlightsServlet extends HttpServlet {
             flight.setRoute(route);
             flight.setPlane(plane);
             flightsDAO.create(flight);
-            command = EnumMethods.getList;
+            command = EnumMethods.GET_LIST;
             actionSelectionToGet(req, res, connection,command,transitionPage);
         }
     }
@@ -257,7 +257,7 @@ public class AllFlightsServlet extends HttpServlet {
             Flights flight = new Flights();
             flight.setId(Integer.parseInt(req.getParameter("id")));
             FlightsDAO flightsDAO = new FlightsDAO(connection);
-            flight.setId_airlines(Integer.parseInt(req.getParameter("id_flight")));
+            flight.setIdAirlines(Integer.parseInt(req.getParameter("id_flight")));
             route.setId(Integer.parseInt(req.getParameter("route")));
             flight.setDate(LocalDate.parse(req.getParameter("date")));
             flight.setTime(LocalTime.parse(req.getParameter("time")));
@@ -265,7 +265,7 @@ public class AllFlightsServlet extends HttpServlet {
             flight.setRoute(route);
             flight.setPlane(plane);
             flightsDAO.update(flight);
-            command = EnumMethods.getList;
+            command = EnumMethods.GET_LIST;
             actionSelectionToGet(req, res, connection,command,transitionPage);
         }
     }
@@ -280,7 +280,7 @@ public class AllFlightsServlet extends HttpServlet {
             int id = Integer.parseInt(req.getParameter("id"));
             FlightsDAO flightsDAO = new FlightsDAO(connection);
             flightsDAO.delete(id);
-            command = EnumMethods.getList;
+            command = EnumMethods.GET_LIST;
             actionSelectionToGet(req, res, connection, command, transitionPage);
         }
     }
@@ -294,9 +294,9 @@ public class AllFlightsServlet extends HttpServlet {
         if (req.getParameter("text_search").equals("")) {
             throw new BlankFieldException("No value entered");
         } else {
-            String search_line = req.getParameter("text_search");
-            String name_field = req.getParameter("name_field");
-            String requestSQL = createSQLSearch(name_field, search_line);
+            String search = req.getParameter("text_search");
+            String field = req.getParameter("name_field");
+            String requestSQL = createSQLSearch(field, search);
             getListSearchAndSort(req, res, connection, requestSQL,transitionPage);
         }
     }
@@ -319,29 +319,29 @@ public class AllFlightsServlet extends HttpServlet {
     /**
      * Метод определяющий по полю и строке поиска какой использовать запрос.
      *
-     * @param name_field  - имя поля
-     * @param search_line - строка поиска
+     * @param nameField  - имя поля
+     * @param searchLine - строка поиска
      * @return - получившийся запрос
      */
-    private String createSQLSearch(String name_field, String search_line) {
-        EnumNameField name_field_enum = EnumNameField.valueOf(name_field);
-        switch (name_field_enum) {
+    private String createSQLSearch(String nameField, String searchLine) {
+        EnumNameField field = EnumNameField.valueOf(nameField);
+        switch (field) {
             case id_flights:
-                return "where flights.id_flights like ('%" + search_line + "%')";
+                return "where flights.id_flights like ('%" + searchLine + "%')";
             case from_name:
-                return "where flights.id_route in ( select route.id FROM  route where route.id_to in (select Id from city where name_city like ('%" + search_line + "%')))";
+                return "where flights.id_route in ( select route.id FROM  route where route.id_to in (select Id from city where name_city like ('%" + searchLine + "%')))";
             case to_name:
-                return "where flights.id_route in ( select route.id FROM  route where route.id_from in (select Id from city where name_city like ('%" + search_line + "%')))";
+                return "where flights.id_route in ( select route.id FROM  route where route.id_from in (select Id from city where name_city like ('%" + searchLine + "%')))";
             case plane_name:
-                return "where flights.id_plane in(select plane.id FROM plane where plane.name_plane like ('%" + search_line + "%'))";
+                return "where flights.id_plane in(select plane.id FROM plane where plane.name_plane like ('%" + searchLine + "%'))";
             case type_name:
-                return "where flights.id_plane in(select plane.id FROM plane where plane.id_type in(select Id from typea where typea.name_type like('%" + search_line + "%')))";
+                return "where flights.id_plane in(select plane.id FROM plane where plane.id_type in(select Id from typea where typea.name_type like('%" + searchLine + "%')))";
             case date_value:
-                return "where flights.date like ('%" + search_line + "%')";
+                return "where flights.date like ('%" + searchLine + "%')";
             case time_value:
-                return "where flights.time like ('%" + search_line + "%')";
+                return "where flights.time like ('%" + searchLine + "%')";
             case time_travel:
-                return "where flights.id_route in ( select route.id FROM  route where route.time_travel like ('%" + search_line + "%')";
+                return "where flights.id_route in ( select route.id FROM  route where route.time_travel like ('%" + searchLine + "%')";
             default:
                 return "";
         }
@@ -351,26 +351,26 @@ public class AllFlightsServlet extends HttpServlet {
      * Метод вставки.
      */
     private void sort(HttpServletRequest req, HttpServletResponse res, Connection connection,String transitionPage) throws SQLException, BlankFieldException, DepartureAndArrivalCityAreTheSameException {
-        String field_name = req.getParameter("field_name");
+        String fieldName = req.getParameter("field_name");
         String view = req.getParameter("view");
-        String sortSQL = createSQLSort(field_name, view);
+        String sortSQL = createSQLSort(fieldName, view);
         getListSearchAndSort(req, res, connection, sortSQL,transitionPage);
     }
 
     /**
      * Метод определяющий по полю и виду сортировки, какой использовать запрос.
      *
-     * @param field_name  - имя поля
+     * @param fieldName  - имя поля
      * @param view - вид сортировки
      * @return - получившийся запрос
      */
-    private String createSQLSort(String field_name, String view) {
+    private String createSQLSort(String fieldName, String view) {
         String desc = "";
         if (view.equals("sort descending")) {
             desc = "desc";
         }
-        EnumNameField name_field_enum = EnumNameField.valueOf(field_name);
-        switch (name_field_enum) {
+        EnumNameField nameField = EnumNameField.valueOf(fieldName);
+        switch (nameField) {
             case id_flights:
                 return "order by 2 " + desc;
             case from_name:
@@ -399,7 +399,7 @@ public class AllFlightsServlet extends HttpServlet {
         if ((req.getParameter("id_copy") == null) || (req.getParameter("id_copy").equals(""))) {
             throw new BlankFieldException("No copy object");
         } else {
-            command = EnumMethods.getListRouteAndPlane;
+            command = EnumMethods.GET_LIST_ROUTE_AND_PLANE;
             actionSelectionToGet(req, res, connection, command, transitionPage);
         }
     }

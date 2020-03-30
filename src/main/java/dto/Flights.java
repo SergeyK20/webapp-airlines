@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Flights extends Entity<Integer> {
-    private int id_airlines;
+    private int idAirlines;
     private Route route;
     private LocalDate date;
     private LocalTime time;
@@ -14,21 +14,21 @@ public class Flights extends Entity<Integer> {
         super();
     }
 
-    public Flights(int id, int id_airlines, Route route, LocalDate date, LocalTime time, Plane plane){
+    public Flights(int id, int idAirlines, Route route, LocalDate date, LocalTime time, Plane plane){
         super(id);
-        this.id_airlines = id_airlines;
+        this.idAirlines = idAirlines;
         this.route = route;
         this.date = date;
         this.time = time;
         this.plane = plane;
     }
 
-    public int getId_airlines(){
-        return id_airlines;
+    public int getIdAirlines(){
+        return idAirlines;
     }
 
-    public void setId_airlines(int id_airlines){
-        this.id_airlines = id_airlines;
+    public void setIdAirlines(int idAirlines){
+        this.idAirlines = idAirlines;
     }
 
     public Route getRoute(){
@@ -65,7 +65,7 @@ public class Flights extends Entity<Integer> {
 
     public String toString(){
         StringBuffer str = new StringBuffer();
-        str.append(id_airlines).append(" ").
+        str.append(idAirlines).append(" ").
                 append(route).append(" ").
                 append(date.toString()).append(" ").
                 append(time.toString()).append(" ").

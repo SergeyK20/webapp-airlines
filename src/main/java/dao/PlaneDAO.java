@@ -1,10 +1,7 @@
 package dao;
 
-import dto.City;
 import dto.Plane;
-import dto.Route;
 import dto.TypePlane;
-import exceptions.DepartureAndArrivalCityAreTheSameException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -29,7 +26,7 @@ public class PlaneDAO extends AbstractDAO<Integer,Plane>{
         while(resultSet.next()){
             Plane plane = new Plane();
             plane.setId(resultSet.getInt(1));
-            plane.setName_plane(resultSet.getString(2));
+            plane.setNamePlane(resultSet.getString(2));
             TypePlane type = new TypePlane(resultSet.getInt(3),resultSet.getString(4));
             plane.setTypePlane(type);
             list.add(plane);
@@ -53,7 +50,7 @@ public class PlaneDAO extends AbstractDAO<Integer,Plane>{
         while(resultSet.next()){
             Plane plane = new Plane();
             plane.setId(resultSet.getInt(1));
-            plane.setName_plane(resultSet.getString(2));
+            plane.setNamePlane(resultSet.getString(2));
             TypePlane type = new TypePlane(resultSet.getInt(3),resultSet.getString(4));
             plane.setTypePlane(type);
             list.add(plane);
@@ -73,7 +70,7 @@ public class PlaneDAO extends AbstractDAO<Integer,Plane>{
         ResultSet resultSet = pst.executeQuery();
         while (resultSet.next()) {
             plane.setId(resultSet.getInt(1));
-            plane.setName_plane(resultSet.getString(2));
+            plane.setNamePlane(resultSet.getString(2));
             TypePlane type = new TypePlane(resultSet.getInt(3),resultSet.getString(4));
             plane.setTypePlane(type);
         }
@@ -92,13 +89,13 @@ public class PlaneDAO extends AbstractDAO<Integer,Plane>{
 
     @Override
     public boolean create(Plane entity) throws SQLException {
-        if(entity.getName_plane().equals("")){
+        if(entity.getNamePlane().equals("")){
             throw new SQLException();
         } else {
             PreparedStatement pst = null;
             String sqlCreateRoute = "INSERT INTO airlines.plane (name_plane, id_type) Values (?,?)";
             pst = connection.prepareStatement(sqlCreateRoute);
-            pst.setString(1, entity.getName_plane());
+            pst.setString(1, entity.getNamePlane());
             pst.setInt(2, entity.getTypePlane().getId());
             pst.executeUpdate();
         }
@@ -107,13 +104,13 @@ public class PlaneDAO extends AbstractDAO<Integer,Plane>{
 
     @Override
     public boolean update(Plane entity) throws SQLException {
-        if (entity.getName_plane().equals("")) {
+        if (entity.getNamePlane().equals("")) {
             throw new SQLException();
         } else {
             PreparedStatement pst = null;
             String sqlUpdateRoute = "update airlines.plane set name_plane = ?, id_type = ? where Id= ?;";
             pst = connection.prepareStatement(sqlUpdateRoute);
-            pst.setString(1, entity.getName_plane());
+            pst.setString(1, entity.getNamePlane());
             pst.setInt(2, entity.getTypePlane().getId());
             pst.setInt(3, entity.getId());
             pst.executeUpdate();

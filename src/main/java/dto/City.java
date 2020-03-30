@@ -1,26 +1,26 @@
 package dto;
 
 public class City extends Entity<Integer> {
-    private String name_city;
+    private String nameCity;
 
     public City (){
         super();
     }
 
-    public City(int id, String name_city){
+    public City(int id, String nameCity){
         super(id);
-        this.name_city = name_city;
+        this.nameCity = nameCity;
     }
 
-    public String getName_city(){
-        return name_city;
+    public String getNameCity(){
+        return nameCity;
     }
 
-    public void setName_city(String name_city){
-        this.name_city = name_city;
+    public void setNameCity(String nameCity){
+        this.nameCity = nameCity;
     }
 
     public String toString(){
-        return name_city;
+        return nameCity;
     }
 }

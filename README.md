@@ -1,16 +1,13 @@
 # AirlinesDB
 version 
 -Tomcat 9.0
--IntelliJ IDEA 2019.3.2 x64
 -MySQL 8.0
 -java version 13.0.2
--servlet-api 2.5
--jstl 1.2
--commons-dbcp 1.4
 -javaee-api 8.0.1
 
 Пошаговый деплой приложения на сервер tomcat:
 - Зайти в папку с приложением
+- Запустить скрипт с базой данных в mysql или intelejiIdea
 - Войти в командную строку и прописать "mvn package"
 - Появится папка target, зайдите в нее
 - В ней будет файл webapp-airlines.war, скопируйте ее

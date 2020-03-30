@@ -3,10 +3,8 @@ package servlets;
 import connection.ConnectionPool;
 import dao.CityDAO;
 import dao.EnumNameField;
-import dao.FlightsDAO;
 import dao.RouteDAO;
 import dto.City;
-import dto.Flights;
 import dto.Route;
 import exceptions.BlankFieldException;
 import exceptions.DepartureAndArrivalCityAreTheSameException;
@@ -45,25 +43,25 @@ public class RouteServlet extends HttpServlet {
 
     private void processExceptions(HttpServletRequest req, HttpServletResponse res, EnumMethods command, String transitionPage) {
         switch (command) {
-            case create:
+            case CREATE:
                 transitionPage = "routeJSP/addRoute.jsp";
-                command = EnumMethods.getListCity;
+                command = EnumMethods.GET_LIST_CITY;
                 processRequest(req, res, command, transitionPage);
                 break;
-            case insert:
+            case INSERT:
                 transitionPage = req.getParameter("transitionPage");
-                command = EnumMethods.getListCity;
+                command = EnumMethods.GET_LIST_CITY;
                 processRequest(req, res, command, transitionPage);
                 break;
-            case delete:
-            case search:
-            case sort:
-                command = EnumMethods.getList;
+            case DELETE:
+            case SEARCH:
+            case SORT:
+                command = EnumMethods.GET_LIST;
                 processRequest(req, res, command, transitionPage);
                 break;
-            case update:
+            case UPDATE:
                 transitionPage = "routeJSP/updateRoute.jsp";
-                command = EnumMethods.getListCity;
+                command = EnumMethods.GET_LIST_CITY;
                 processRequest(req, res, command, transitionPage);
                 break;
             default:
@@ -73,29 +71,29 @@ public class RouteServlet extends HttpServlet {
 
     private void actionSelectionToGet(HttpServletRequest req, HttpServletResponse res, Connection connection, EnumMethods command, String transitionPage) throws BlankFieldException, SQLException, DepartureAndArrivalCityAreTheSameException {
         switch (command) {
-            case getList:
-            case drop:
+            case GET_LIST:
+            case DROP:
                 getList(req, res, connection, transitionPage);
                 break;
-            case getListCity:
+            case GET_LIST_CITY:
                 getListCity(req, res, connection,transitionPage);
                 break;
-            case create:
+            case CREATE:
                 create(req, res, connection, command, transitionPage);
                 break;
-            case delete:
+            case DELETE:
                 remove(req, res, connection,command, transitionPage);
                 break;
-            case update:
+            case UPDATE:
                 update(req, res, connection, command, transitionPage);
                 break;
-            case search:
+            case SEARCH:
                 search(req, res, connection, transitionPage);
                 break;
-            case sort:
+            case SORT:
                 sort(req, res, connection,transitionPage);
                 break;
-            case insert:
+            case INSERT:
                 insert(req, res, connection,command, transitionPage);
             default:
                 break;
@@ -165,7 +163,7 @@ public class RouteServlet extends HttpServlet {
             route.setTo(cityTo);
             route.setTravelTimeMinutes(Integer.parseInt(req.getParameter("travel_minutes")));
             routeDAO.create(route);
-            command = EnumMethods.getList;
+            command = EnumMethods.GET_LIST;
             actionSelectionToGet(req, res, connection, command, transitionPage);
         }
     }
@@ -186,7 +184,7 @@ public class RouteServlet extends HttpServlet {
             route.setTo(cityTo);
             route.setTravelTimeMinutes(Integer.parseInt(req.getParameter("travel_minutes")));
             routeDAO.update(route);
-            command = EnumMethods.getList;
+            command = EnumMethods.GET_LIST;
             actionSelectionToGet(req, res, connection, command, transitionPage);
         }
     }
@@ -198,7 +196,7 @@ public class RouteServlet extends HttpServlet {
             int id = Integer.parseInt(req.getParameter("id"));
             RouteDAO routeDAO = new RouteDAO(connection);
             routeDAO.delete(id);
-            command = EnumMethods.getList;
+            command = EnumMethods.GET_LIST;
             actionSelectionToGet(req, res, connection, command,transitionPage);
         }
     }
@@ -207,32 +205,32 @@ public class RouteServlet extends HttpServlet {
         if ((req.getParameter("id_copy") == null) || (req.getParameter("id_copy").equals(""))) {
             throw new BlankFieldException("No copy object");
         } else {
-            command = EnumMethods.getListCity;
+            command = EnumMethods.GET_LIST_CITY;
             actionSelectionToGet(req, res, connection, command, transitionPage);
         }
     }
 
     private void sort(HttpServletRequest req, HttpServletResponse res, Connection connection, String transitionPage) throws SQLException {
-        String field_name = req.getParameter("field_name");
+        String fieldName = req.getParameter("field_name");
         String view = req.getParameter("view");
-        String sortSQL = createSQLSort(field_name, view);
+        String sortSQL = createSQLSort(fieldName, view);
         getListSearchAndSort(req, res, connection, sortSQL, transitionPage);
     }
 
     /**
      * Метод определяющий по полю и виду сортировки, какой использовать запрос.
      *
-     * @param field_name - имя поля
+     * @param fieldName - имя поля
      * @param view       - вид сортировки
      * @return - получившийся запрос
      */
-    private String createSQLSort(String field_name, String view) {
+    private String createSQLSort(String fieldName, String view) {
         String desc = "";
         if (view.equals("sort descending")) {
             desc = "desc";
         }
-        EnumNameField name_field_enum = EnumNameField.valueOf(field_name);
-        switch (name_field_enum) {
+        EnumNameField nameField = EnumNameField.valueOf(fieldName);
+        switch (nameField) {
             case from_name:
                 return "order by city_from " + desc;
             case to_name:
@@ -248,9 +246,9 @@ public class RouteServlet extends HttpServlet {
         if (req.getParameter("text_search").equals("")) {
             throw new BlankFieldException("No value entered");
         } else {
-            String search_line = req.getParameter("text_search");
-            String name_field = req.getParameter("name_field");
-            String requestSQL = createSQLSearch(name_field, search_line);
+            String search = req.getParameter("text_search");
+            String nameField = req.getParameter("name_field");
+            String requestSQL = createSQLSearch(nameField, search);
             getListSearchAndSort(req, res, connection, requestSQL, transitionPage);
         }
     }
@@ -267,15 +265,15 @@ public class RouteServlet extends HttpServlet {
     }
 
     //переделать запросы
-    private String createSQLSearch(String name_field, String search_line) {
-        EnumNameField name_field_enum = EnumNameField.valueOf(name_field);
-        switch (name_field_enum) {
+    private String createSQLSearch(String nameField, String searchLine) {
+        EnumNameField enumNameField = EnumNameField.valueOf(nameField);
+        switch (enumNameField) {
             case from_name:
-                return "where route.id_from in (select city.id from city where city.name_city like ('%" + search_line + "%'))";
+                return "where route.id_from in (select city.id from city where city.name_city like ('%" + searchLine + "%'))";
             case to_name:
-                return "where route.id_to in (select city.id from city where city.name_city like ('%" + search_line + "%'))";
+                return "where route.id_to in (select city.id from city where city.name_city like ('%" + searchLine + "%'))";
             case time_travel:
-                return "where route.time_travel like  ('%" + search_line + "%')";
+                return "where route.time_travel like  ('%" + searchLine + "%')";
             default:
                 return "";
         }

@@ -1,5 +1,4 @@
 package dao;
-import dto.City;
 import dto.TypePlane;
 
 import java.sql.*;
@@ -24,7 +23,7 @@ public class TypePlaneDAO extends AbstractDAO<Integer, TypePlane> {
         while(resultSet.next()){
             TypePlane typePlane = new TypePlane();
             typePlane.setId(resultSet.getInt(1));
-            typePlane.setName_type(resultSet.getString(2));
+            typePlane.setNameType(resultSet.getString(2));
             list.add(typePlane);
         }
         pst.close();
@@ -43,7 +42,7 @@ public class TypePlaneDAO extends AbstractDAO<Integer, TypePlane> {
             while(resultSet.next()){
                 TypePlane type = new TypePlane();
                 type.setId(resultSet.getInt(1));
-                type.setName_type(resultSet.getString(2));
+                type.setNameType(resultSet.getString(2));
                 list.add(type);
             }
             st.close();
@@ -64,7 +63,7 @@ public class TypePlaneDAO extends AbstractDAO<Integer, TypePlane> {
         ResultSet resultSet = pst.executeQuery();
         while (resultSet.next()) {
             typePlane.setId(resultSet.getInt(1));
-            typePlane.setName_type(resultSet.getString(2));
+            typePlane.setNameType(resultSet.getString(2));
         }
         return typePlane;
     }
@@ -81,27 +80,27 @@ public class TypePlaneDAO extends AbstractDAO<Integer, TypePlane> {
 
     @Override
     public boolean create(TypePlane entity) throws SQLException {
-        if(entity.getName_type().equals("")){
+        if(entity.getNameType().equals("")){
             throw new SQLException();
         }
         PreparedStatement pst = null;
         String sqlCreateCity = "INSERT INTO airlines.typea (name_type) Values (?)";
         pst = connection.prepareStatement(sqlCreateCity);
-        pst.setString(1,entity.getName_type());
+        pst.setString(1,entity.getNameType());
         pst.executeUpdate();
         return true;
     }
 
     @Override
     public boolean update(TypePlane entity) throws SQLException {
-        if(entity.getName_type().equals("")){
+        if(entity.getNameType().equals("")){
             throw new SQLException();
         }
         PreparedStatement pst = null;
         String sqlCreateCity = "update airlines.typea set name_type = ? where Id= ?;";
         pst = connection.prepareStatement(sqlCreateCity);
         pst.setInt(2,entity.getId());
-        pst.setString(1,entity.getName_type());
+        pst.setString(1,entity.getNameType());
         pst.executeUpdate();
         return true;
     }

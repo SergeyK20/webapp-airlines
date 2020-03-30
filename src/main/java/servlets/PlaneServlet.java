@@ -43,25 +43,25 @@ public class PlaneServlet extends HttpServlet {
 
     private void processExceptions(HttpServletRequest req, HttpServletResponse res, EnumMethods command, String transitionPage)  {
         switch (command) {
-            case create:
+            case CREATE:
                 transitionPage = "planeJSP/addPlane.jsp";
-                command = EnumMethods.getListType;
+                command = EnumMethods.GET_LIST_TYPE;
                 processRequest(req, res, command, transitionPage);
                 break;
-            case insert:
+            case INSERT:
                 transitionPage = req.getParameter("transitionPage");
-                command = EnumMethods.getListType;
+                command = EnumMethods.GET_LIST_TYPE;
                 processRequest(req, res, command, transitionPage);
                 break;
-            case delete:
-            case search:
-            case sort:
-                command = EnumMethods.getList;
+            case DELETE:
+            case SEARCH:
+            case SORT:
+                command = EnumMethods.GET_LIST;
                 processRequest(req, res, command, transitionPage);
                 break;
-            case update:
+            case UPDATE:
                 transitionPage = "planeJSP/updatePlane.jsp";
-                command = EnumMethods.getListType;
+                command = EnumMethods.GET_LIST_TYPE;
                 processRequest(req, res, command, transitionPage);
                 break;
             default:
@@ -73,29 +73,29 @@ public class PlaneServlet extends HttpServlet {
 
     private void actionSelectionToGet(HttpServletRequest req, HttpServletResponse res, Connection connection, EnumMethods command, String transitionPage) throws BlankFieldException, SQLException, DepartureAndArrivalCityAreTheSameException {
         switch (command) {
-            case getList:
-            case drop:
+            case GET_LIST:
+            case DROP:
                 getList(req, res, connection, transitionPage);
                 break;
-            case getListType:
+            case GET_LIST_TYPE:
                 getListType(req, res, connection, transitionPage);
                 break;
-            case create:
+            case CREATE:
                 create(req, res, connection, command, transitionPage);
                 break;
-            case delete:
+            case DELETE:
                 remove(req, res, connection, command, transitionPage);
                 break;
-            case update:
+            case UPDATE:
                 update(req, res, connection, command, transitionPage);
                 break;
-            case search:
+            case SEARCH:
                 search(req, res, connection, transitionPage);
                 break;
-            case sort:
+            case SORT:
                 sort(req, res, connection, transitionPage);
                 break;
-            case insert:
+            case INSERT:
                 insert(req, res, connection, command, transitionPage);
             default:
                 break;
@@ -162,9 +162,9 @@ public class PlaneServlet extends HttpServlet {
             TypePlane typePlane = new TypePlane();
             typePlane.setId(Integer.parseInt(req.getParameter("type_id")));
             plane.setTypePlane(typePlane);
-            plane.setName_plane(req.getParameter("name_plane"));
+            plane.setNamePlane(req.getParameter("name_plane"));
             planeDAO.create(plane);
-            command = EnumMethods.getList;
+            command = EnumMethods.GET_LIST;
             actionSelectionToGet(req, res, connection, command, transitionPage);
         }
     }
@@ -181,9 +181,9 @@ public class PlaneServlet extends HttpServlet {
             TypePlane typePlane = new TypePlane();
             typePlane.setId(Integer.parseInt(req.getParameter("type_id")));
             plane.setTypePlane(typePlane);
-            plane.setName_plane(req.getParameter("name_plane"));
+            plane.setNamePlane(req.getParameter("name_plane"));
             planeDAO.update(plane);
-            command = EnumMethods.getList;
+            command = EnumMethods.GET_LIST;
             actionSelectionToGet(req, res, connection, command, transitionPage);
         }
     }
@@ -195,7 +195,7 @@ public class PlaneServlet extends HttpServlet {
             int id = Integer.parseInt(req.getParameter("id"));
             PlaneDAO planeDAO = new PlaneDAO(connection);
             planeDAO.delete(id);
-            command = EnumMethods.getList;
+            command = EnumMethods.GET_LIST;
             actionSelectionToGet(req, res, connection, command, transitionPage);
         }
     }
@@ -204,32 +204,32 @@ public class PlaneServlet extends HttpServlet {
         if ((req.getParameter("id_copy") == null) || (req.getParameter("id_copy").equals(""))) {
             throw new BlankFieldException("No copy object");
         } else {
-            command = EnumMethods.getListType;
+            command = EnumMethods.GET_LIST_TYPE;
             actionSelectionToGet(req, res, connection, command, transitionPage);
         }
     }
 
     private void sort(HttpServletRequest req, HttpServletResponse res, Connection connection, String transitionPage) throws SQLException {
-        String field_name = req.getParameter("field_name");
+        String fieldName = req.getParameter("field_name");
         String view = req.getParameter("view");
-        String sortSQL = createSQLSort(field_name, view);
+        String sortSQL = createSQLSort(fieldName, view);
         getListSearchAndSort(req, res, connection, sortSQL, transitionPage);
     }
 
     /**
      * Метод определяющий по полю и виду сортировки, какой использовать запрос.
      *
-     * @param field_name  - имя поля
+     * @param fieldName  - имя поля
      * @param view - вид сортировки
      * @return - получившийся запрос
      */
-    private String createSQLSort(String field_name, String view) {
+    private String createSQLSort(String fieldName, String view) {
         String desc = "";
         if (view.equals("sort descending")) {
             desc = "desc";
         }
-        EnumNameField name_field_enum = EnumNameField.valueOf(field_name);
-        switch (name_field_enum) {
+        EnumNameField nameField = EnumNameField.valueOf(fieldName);
+        switch (nameField) {
             case plane_name:
                 return "order by 2 " + desc;
             case type_name:
@@ -244,9 +244,9 @@ public class PlaneServlet extends HttpServlet {
         if (req.getParameter("text_search").equals("")) {
             throw new BlankFieldException("No value entered");
         } else {
-            String search_line = req.getParameter("text_search");
-            String name_field = req.getParameter("name_field");
-            String requestSQL = createSQLSearch(name_field, search_line);
+            String search = req.getParameter("text_search");
+            String field = req.getParameter("name_field");
+            String requestSQL = createSQLSearch(field, search);
             System.out.println(requestSQL);
             getListSearchAndSort(req, res, connection, requestSQL, transitionPage);
         }
@@ -264,13 +264,13 @@ public class PlaneServlet extends HttpServlet {
     }
 
     //переделать запросы
-    private String createSQLSearch(String name_field, String search_line) {
-        EnumNameField name_field_enum = EnumNameField.valueOf(name_field);
-        switch (name_field_enum) {
+    private String createSQLSearch(String nameField, String searchLine) {
+        EnumNameField nameFieldEnum = EnumNameField.valueOf(nameField);
+        switch (nameFieldEnum) {
             case plane_name:
-                return "where plane.name_plane like ('%" + search_line + "%')";
+                return "where plane.name_plane like ('%" + searchLine + "%')";
             case type_name:
-                return "where plane.id_type in (select typea.id from airlines.typea where typea.name_type like ('%" + search_line + "%'))";
+                return "where plane.id_type in (select typea.id from airlines.typea where typea.name_type like ('%" + searchLine + "%'))";
             default:
                 return "";
         }
