@@ -1,10 +1,15 @@
 package connection;
 
 import org.apache.commons.dbcp.BasicDataSource;
+import writeFileException.WriteExceptionToFile;
+
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
+
 
 public final class  ConnectionPool {
     private ConnectionPool() {
@@ -28,12 +33,17 @@ public final class  ConnectionPool {
             cacheProps.setProperty("ValidateConnection", "true");
             ods.setDriverClassName("com.mysql.cj.jdbc.Driver");
             ods.setConnectionProperties(String.valueOf(cacheProps));
-        } catch (IOException e) {
-            System.out.println("Exception: " + e.getMessage());
+        } catch (IOException | NullPointerException e) {
+            WriteExceptionToFile.getFileException(e.getMessage());
         }
     }
 
-    public static Connection getConnection() throws SQLException {
-        return ods.getConnection();
+    public static Connection getConnection()  {
+         try {
+             return ods.getConnection();
+         } catch (SQLException e){
+             WriteExceptionToFile.getFileException(e.getMessage());
+             return  null;
+         }
     }
 }

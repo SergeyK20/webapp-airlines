@@ -13,5 +13,6 @@
 </head>
 <body>
     <h1>Connection problems...</h1>
+    <div align="center">The error message can be viewed in the folder tomcat / bin / FileException.txt </div>
 </body>
 </html>
