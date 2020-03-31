@@ -91,7 +91,7 @@
         <tr>
             <td><%= i++%>
             </td>
-            <td><c:out value=" ${City.name_city}"/></td>
+            <td><c:out value=" ${City.nameCity}"/></td>
             <td>
                 <input form="edit" type="radio" name="id" value="${City.id}">
             </td>

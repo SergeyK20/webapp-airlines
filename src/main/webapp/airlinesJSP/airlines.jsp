@@ -194,13 +194,13 @@
         <tr>
             <td><%= i++ %>
             </td>
-            <td><c:out value="${Airlines.id_airlines}"/></td>
+            <td><c:out value="${Airlines.idAirlines}"/></td>
             <td><c:out value=" ${Airlines.route.from}"/></td>
             <td><c:out value=" ${Airlines.route.to}"/></td>
             <td><c:out value=" ${Airlines.route.travelTimeMinutes}"/></td>
             <td><c:out value=" ${Airlines.date}"/></td>
             <td><c:out value=" ${Airlines.time}"/></td>
-            <td><c:out value=" ${Airlines.plane.name_plane}"/></td>
+            <td><c:out value=" ${Airlines.plane.namePlane}"/></td>
             <td><c:out value=" ${Airlines.plane.typePlane}"/></td>
             <td>
                 <input form="edit" type="radio" name="id" value="${Airlines.id}">

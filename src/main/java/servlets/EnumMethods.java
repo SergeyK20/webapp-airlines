@@ -1,18 +1,18 @@
 package servlets;
 
 public enum EnumMethods {
-    DROP("drop"),
-    CREATE("create"),
-    UPDATE("update"),
-    DELETE("delete"),
-    SEARCH("search"),
-    GET_LIST("getList"),
-    GET_LIST_CITY("getListCity"),
-    GET_LIST_TYPE("getListType"),
-    GET_LIST_ROUTE_AND_PLANE("getListRouteAndPlane"),
-    SORT("sort"),
-    INSERT("insert"),
-    GET_PAGE_CREATE_OR_EDIT("getPageCreateOrEdit");
+    drop("drop"),
+    create("create"),
+    update("update"),
+    delete("delete"),
+    search("search"),
+    getList("getList"),
+    getListCity("getListCity"),
+    getListType("getListType"),
+    getListRouteAndPlane("getListRouteAndPlane"),
+    sort("sort"),
+    insert("insert"),
+    getPageCreateOrEdit("getPageCreateOrEdit");
 
     private String nameString;
 

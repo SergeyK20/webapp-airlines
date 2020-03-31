@@ -27,7 +27,7 @@
     <form action="${pageContext.request.contextPath}/typePlane" method="post">
         <input type="hidden" name="command" value="update">
         <input type="hidden" name="id" value=${param.id}>
-        New name type:<input type="text" name="type_name" autocomplete="off" value="${type.name_type}"class="w3-round-large w3-small" style="width: 100px;height: auto"/><br>
+        New name type:<input type="text" name="type_name" autocomplete="off" value="${type.nameType}"class="w3-round-large w3-small" style="width: 100px;height: auto"/><br>
             <input type="submit" value="Update" class="w3-btn w3-light-grey w3-round-large w3">
     </form>
     <form action="${pageContext.request.contextPath}/typePlane" method="post">

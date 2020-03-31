@@ -90,7 +90,7 @@
         <c:forEach var="TypePlane" items="${list}">
             <tr>
                 <td><%=i++%></td>
-                <td><c:out value=" ${TypePlane.name_type}"/></td>
+                <td><c:out value=" ${TypePlane.nameType}"/></td>
                 <td>
                     <input form="edit" type="radio" name="id" value="${TypePlane.id}">
                 </td>

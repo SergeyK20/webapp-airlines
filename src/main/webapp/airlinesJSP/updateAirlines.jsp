@@ -26,7 +26,7 @@
 <form action="${pageContext.request.contextPath}/flightAll" method="post">
     <input type="hidden" name="command" value="update">
     <input type="hidden" name="id" value="${param.id}">
-    Idfly :<input type="text" name="id_flight" value="${flight.id_airlines}"class="w3-round-large w3-small" style="width: 100px;height: auto"><br>
+    Idfly :<input type="text" name="id_flight" value="${flight.idAirlines}"class="w3-round-large w3-small" style="width: 100px;height: auto"><br>
     Route :<select name="route"class="w3-round-large w3-small" style="width: 100px;height: auto">
     <option selected value="${flight.route.id}"class="w3-round-large w3-small" style="width: 95px;height: auto">
         <c:out value="from ${flight.route.from} "/>
@@ -43,17 +43,17 @@
     time : <input type="time" name="time" value="${flight.time}"class="w3-round-large w3-small" style="width: 100px;height: auto"><br>
     Plane :<select name="plane"class="w3-round-large w3-small" style="width: 97px;height: auto">
     <option selected value="${flight.plane.id}"class="w3-round-large w3-small" style="width: 100px;height: auto">
-        <c:out value="from ${flight.plane.name_plane}"/>
+        <c:out value="from ${flight.plane.namePlane}"/>
         <c:out value="to ${flight.plane.typePlane} "/>
     </option>
     <c:forEach var="Plane" items="${list1}">
         <option  value="${Plane.id}"class="w3-round-large w3-small" style="width: 100px;height: auto">
-            <c:out value=" ${Plane.name_plane}"/>
-            <c:out value=" ${Plane.typePlane.name_type}"/>
+            <c:out value=" ${Plane.namePlane}"/>
+            <c:out value=" ${Plane.typePlane.nameType}"/>
         </option>
     </c:forEach>
 </select><br>
-    <input type="submit" value="Save" class="w3-btn w3-round-large w3-light-grey">
+    <input type="submit" value="save" class="w3-btn w3-round-large w3-light-grey">
 </form>
 <form action="${pageContext.request.contextPath}/flightAll" method="post">
     <input type="hidden" name="transitionPage" value="airlinesJSP/updateAirlines.jsp">

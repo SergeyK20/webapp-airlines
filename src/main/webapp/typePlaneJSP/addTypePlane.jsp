@@ -22,11 +22,11 @@
             color: red;
         }
     </style>
-    <div>
+    <div align="center">
     <form action="${pageContext.request.contextPath}/typePlane" method="post">
         <input type="hidden" name="command" value="create">
-        Name type: <input type="text" name="type_name" autocomplete="off" value="${type.name_type}"class="w3-round-large w3-small" style="width: 100px;height: auto"/><br/>
-        <input type="submit" value="Save"class="w3-btn w3-round-large -w3-light-grey">
+        Name type: <input type="text" name="type_name" autocomplete="off" value="${type.nameType}"class="w3-round-large w3-small" style="width: 100px;height: auto"/><br/>
+        <input type="submit" value="Save" class="w3-btn w3-round-large -w3-light-grey">
     </form><br/>
     <form action="${pageContext.request.contextPath}/typePlane" method="post">
         <input type="hidden" name="transitionPage" value="typePlaneJSP/addTypePlane.jsp">

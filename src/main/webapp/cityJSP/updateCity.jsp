@@ -27,7 +27,7 @@
     <form action="${pageContext.request.contextPath}/city" method="post">
         <input type="hidden" name="command" value="update">
         <input type="hidden" name="id" value="${param.id}" >
-        New name city: <input type="text" name="name_city" autocomplete="off" value="${city.name_city}"class="w3-round-large w3-small" style="width: 100px;height: auto"/><br>
+        New name city: <input type="text" name="name_city" autocomplete="off" value="${city.nameCity}"class="w3-round-large w3-small" style="width: 100px;height: auto"/><br>
         <input type="submit" value="Update"class="w3-round-large w3-small w3-light-grey w3-btn">
     </form>
     <form action="${pageContext.request.contextPath}/city" method="post">

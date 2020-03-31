@@ -43,25 +43,25 @@ public class RouteServlet extends HttpServlet {
 
     private void processExceptions(HttpServletRequest req, HttpServletResponse res, EnumMethods command, String transitionPage) {
         switch (command) {
-            case CREATE:
+            case create:
                 transitionPage = "routeJSP/addRoute.jsp";
-                command = EnumMethods.GET_LIST_CITY;
+                command = EnumMethods.getListCity;
                 processRequest(req, res, command, transitionPage);
                 break;
-            case INSERT:
+            case insert:
                 transitionPage = req.getParameter("transitionPage");
-                command = EnumMethods.GET_LIST_CITY;
+                command = EnumMethods.getListCity;
                 processRequest(req, res, command, transitionPage);
                 break;
-            case DELETE:
-            case SEARCH:
-            case SORT:
-                command = EnumMethods.GET_LIST;
+            case delete:
+            case search:
+            case sort:
+                command = EnumMethods.getList;
                 processRequest(req, res, command, transitionPage);
                 break;
-            case UPDATE:
+            case update:
                 transitionPage = "routeJSP/updateRoute.jsp";
-                command = EnumMethods.GET_LIST_CITY;
+                command = EnumMethods.getListCity;
                 processRequest(req, res, command, transitionPage);
                 break;
             default:
@@ -71,29 +71,29 @@ public class RouteServlet extends HttpServlet {
 
     private void actionSelectionToGet(HttpServletRequest req, HttpServletResponse res, Connection connection, EnumMethods command, String transitionPage) throws BlankFieldException, SQLException, DepartureAndArrivalCityAreTheSameException {
         switch (command) {
-            case GET_LIST:
-            case DROP:
+            case getList:
+            case drop:
                 getList(req, res, connection, transitionPage);
                 break;
-            case GET_LIST_CITY:
+            case getListCity:
                 getListCity(req, res, connection,transitionPage);
                 break;
-            case CREATE:
+            case create:
                 create(req, res, connection, command, transitionPage);
                 break;
-            case DELETE:
+            case delete:
                 remove(req, res, connection,command, transitionPage);
                 break;
-            case UPDATE:
+            case update:
                 update(req, res, connection, command, transitionPage);
                 break;
-            case SEARCH:
+            case search:
                 search(req, res, connection, transitionPage);
                 break;
-            case SORT:
+            case sort:
                 sort(req, res, connection,transitionPage);
                 break;
-            case INSERT:
+            case insert:
                 insert(req, res, connection,command, transitionPage);
             default:
                 break;
@@ -163,7 +163,7 @@ public class RouteServlet extends HttpServlet {
             route.setTo(cityTo);
             route.setTravelTimeMinutes(Integer.parseInt(req.getParameter("travel_minutes")));
             routeDAO.create(route);
-            command = EnumMethods.GET_LIST;
+            command = EnumMethods.getList;
             actionSelectionToGet(req, res, connection, command, transitionPage);
         }
     }
@@ -184,7 +184,7 @@ public class RouteServlet extends HttpServlet {
             route.setTo(cityTo);
             route.setTravelTimeMinutes(Integer.parseInt(req.getParameter("travel_minutes")));
             routeDAO.update(route);
-            command = EnumMethods.GET_LIST;
+            command = EnumMethods.getList;
             actionSelectionToGet(req, res, connection, command, transitionPage);
         }
     }
@@ -196,7 +196,7 @@ public class RouteServlet extends HttpServlet {
             int id = Integer.parseInt(req.getParameter("id"));
             RouteDAO routeDAO = new RouteDAO(connection);
             routeDAO.delete(id);
-            command = EnumMethods.GET_LIST;
+            command = EnumMethods.getList;
             actionSelectionToGet(req, res, connection, command,transitionPage);
         }
     }
@@ -205,7 +205,7 @@ public class RouteServlet extends HttpServlet {
         if ((req.getParameter("id_copy") == null) || (req.getParameter("id_copy").equals(""))) {
             throw new BlankFieldException("No copy object");
         } else {
-            command = EnumMethods.GET_LIST_CITY;
+            command = EnumMethods.getListCity;
             actionSelectionToGet(req, res, connection, command, transitionPage);
         }
     }

@@ -27,7 +27,7 @@
 <form action="${pageContext.request.contextPath}/flightAll" method="post" id="create">
     <input type="hidden" name="command" value="create" class="w3-round-large w3-small" style="width: 200px;height: auto">
 
-    Idfly:<input  align="center" type="text" name="id_flight" value="${flight.id_airlines}" class="w3-round-large w3-small" style="width: 100px;height: auto"><br>
+    Idfly:<input  align="center" type="text" name="id_flight" value="${flight.idAirlines}" class="w3-round-large w3-small" style="width: 100px;height: auto"><br>
 
     Route:<select name="route" class="w3-round-large w3-small" style="width: 100px;height: auto">
     <c:forEach var="Route" items="${list}">
@@ -49,23 +49,21 @@
     Plane:<select name="plane" class="w3-round-large w3-small" style="width: 100px;height: auto">
     <c:forEach var="Plane" items="${list1}">
         <option value="${Plane.id}">
-            <c:out value=" ${Plane.name_plane}"/>
-            <c:out value=" ${Plane.typePlane.name_type}"/>
+            <c:out value=" ${Plane.namePlane}"/>
+            <c:out value=" ${Plane.typePlane.nameType}"/>
         </option>
     </c:forEach>
     <option selected value="${flight.plane.id}">
-        <c:out value=" ${flight.plane.name_plane}"/>
+        <c:out value=" ${flight.plane.namePlane}"/>
         <c:out value=" ${flight.plane.typePlane}"/>
     </option>
     </select><br>
-
 </form>
-
 <form action="${pageContext.request.contextPath}/flightAll" method="post">
     <input align="center" type="hidden" name="transitionPage" value="airlinesJSP/addAirlines.jsp">
     <input align="center" type="hidden" name="id_copy" value="${id_copy_no_on_servlet}">
     <input align="center" type="submit" name="command" value="insert">
-    <input align="center" type="submit" value="Save" form="create">
+    <input align="center" type="submit" value="save" form="create">
 </form>
 <p align="center"><a href='<c:url value="/flightAll?command=getList" />'>Back</a></p>
 <span class="colortext"><c:out value="${errorMessage}"/>

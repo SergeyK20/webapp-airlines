@@ -107,8 +107,8 @@
         <tr>
             <td><%= i++%>
             </td>
-            <td><c:out value=" ${Plane.name_plane}"/></td>
-            <td><c:out value=" ${Plane.typePlane.name_type}"/></td>
+            <td><c:out value=" ${Plane.namePlane}"/></td>
+            <td><c:out value=" ${Plane.typePlane.nameType}"/></td>
             <td>
                 <input form="edit" type="radio" name="id" value="${Plane.id}">
             </td>

@@ -28,22 +28,22 @@
             Name city from: <select name="city_from"class="w3-round-large w3-small" style="width: 100px;height: auto">
                 <c:forEach var="City" items="${list}">
                    <option   value="${City.id}">
-                           <c:out value=" ${City.name_city}"/>
+                           <c:out value=" ${City.nameCity}"/>
                    </option>
                 </c:forEach>
         <option selected value="${route.from.id}">
-            <c:out value="from ${route.from.name_city} "/>
+            <c:out value="from ${route.from.nameCity} "/>
         </option>
             </select><br/>
 
             Name city to:  <select name="city_to"class="w3-round-large w3-small" style="width: 100px;height: auto">
                 <c:forEach var="City" items="${list}">
                     <option  name="city_to" value="${City.id}">
-                        <c:out value=" ${City.name_city}"/>
+                        <c:out value=" ${City.nameCity}"/>
                     </option>
                 </c:forEach>
         <option selected value="${route.to.id}">
-            <c:out value="to ${route.to.name_city} "/>
+            <c:out value="to ${route.to.nameCity} "/>
         </option>
         </select><br/>
 

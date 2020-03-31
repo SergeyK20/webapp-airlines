@@ -78,25 +78,25 @@ public class AllFlightsServlet extends HttpServlet {
      */
     private void processExceptions(HttpServletRequest req, HttpServletResponse res, EnumMethods command, String transitionPage) {
         switch (command) {
-            case CREATE:
+            case create:
                 transitionPage = "airlinesJSP/addAirlines.jsp";
-                command = EnumMethods.GET_LIST_ROUTE_AND_PLANE;
+                command = EnumMethods.getListRouteAndPlane;
                 processRequest(req, res,command,transitionPage);
                 break;
-            case INSERT:
+            case insert:
                 transitionPage = req.getParameter("transitionPage");
-                command = EnumMethods.GET_LIST_ROUTE_AND_PLANE;
+                command = EnumMethods.getListRouteAndPlane;
                 processRequest(req, res,command,transitionPage);
                 break;
-            case DELETE:
-            case SEARCH:
-            case SORT:
-                command = EnumMethods.GET_LIST;
+            case delete:
+            case search:
+            case sort:
+                command = EnumMethods.getList;
                 processRequest(req, res,command,transitionPage);
                 break;
-            case UPDATE:
+            case update:
                 transitionPage = "airlinesJSP/updateAirlines.jsp";
-                command = EnumMethods.GET_LIST_ROUTE_AND_PLANE;
+                command = EnumMethods.getListRouteAndPlane;
                 processRequest(req, res,command,transitionPage);
                 break;
             default:
@@ -114,29 +114,29 @@ public class AllFlightsServlet extends HttpServlet {
      */
     private void actionSelectionToGet(HttpServletRequest req, HttpServletResponse res, Connection connection, EnumMethods command, String transitionPage) throws BlankFieldException, SQLException, DepartureAndArrivalCityAreTheSameException, IllegalStateException {
         switch (command) {
-            case GET_LIST:
-            case DROP:
+            case getList:
+            case drop:
                 getList(req, res, connection,transitionPage);
                 break;
-            case GET_LIST_ROUTE_AND_PLANE:
+            case getListRouteAndPlane:
                 getListRouteAndPlane(req, res, connection,transitionPage);
                 break;
-            case CREATE:
+            case create:
                 create(req, res, connection, command, transitionPage);
                 break;
-            case DELETE:
+            case delete:
                 remove(req, res, connection, command, transitionPage);
                 break;
-            case UPDATE:
+            case update:
                 update(req, res, connection, command, transitionPage);
                 break;
-            case SEARCH:
+            case search:
                 search(req, res, connection, transitionPage);
                 break;
-            case SORT:
+            case sort:
                 sort(req, res, connection, transitionPage);
                 break;
-            case INSERT:
+            case insert:
                 insert(req, res, connection, command, transitionPage);
                 break;
             default:
@@ -230,7 +230,7 @@ public class AllFlightsServlet extends HttpServlet {
             flight.setRoute(route);
             flight.setPlane(plane);
             flightsDAO.create(flight);
-            command = EnumMethods.GET_LIST;
+            command = EnumMethods.getList;
             actionSelectionToGet(req, res, connection,command,transitionPage);
         }
     }
@@ -265,7 +265,7 @@ public class AllFlightsServlet extends HttpServlet {
             flight.setRoute(route);
             flight.setPlane(plane);
             flightsDAO.update(flight);
-            command = EnumMethods.GET_LIST;
+            command = EnumMethods.getList;
             actionSelectionToGet(req, res, connection,command,transitionPage);
         }
     }
@@ -280,7 +280,7 @@ public class AllFlightsServlet extends HttpServlet {
             int id = Integer.parseInt(req.getParameter("id"));
             FlightsDAO flightsDAO = new FlightsDAO(connection);
             flightsDAO.delete(id);
-            command = EnumMethods.GET_LIST;
+            command = EnumMethods.getList;
             actionSelectionToGet(req, res, connection, command, transitionPage);
         }
     }
@@ -399,7 +399,7 @@ public class AllFlightsServlet extends HttpServlet {
         if ((req.getParameter("id_copy") == null) || (req.getParameter("id_copy").equals(""))) {
             throw new BlankFieldException("No copy object");
         } else {
-            command = EnumMethods.GET_LIST_ROUTE_AND_PLANE;
+            command = EnumMethods.getListRouteAndPlane;
             actionSelectionToGet(req, res, connection, command, transitionPage);
         }
     }

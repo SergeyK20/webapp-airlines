@@ -24,9 +24,9 @@
 </div>
     <div align="center">
         <form action="${pageContext.request.contextPath}/city" method="post">
-            <input type="hidden" name="command" value="create"class="w3-btn w3-round-large">
+            <input type="hidden" name="command" value="create" class="w3-btn w3-round-large">
 
-            Name City: <input type="text" name="name_city" autocomplete="off" value="${city.name_city}"class="w3-round-large w3-small" style="width: 100px;height: auto"/><br/>
+            Name City: <input type="text" name="name_city" autocomplete="off" value="${city.nameCity}" class="w3-round-large w3-small" style="width: 100px;height: auto"/><br/>
             <input type="submit" value="Save" class="w3-btn w3-round-large w3-light-grey">
         </form>
     <form action="${pageContext.request.contextPath}/city" method="post">

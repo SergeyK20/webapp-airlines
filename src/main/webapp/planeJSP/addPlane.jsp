@@ -28,15 +28,15 @@
         Type plane: <select name="type_id" class="w3-round-large w3-small" style="width: 97px;height: auto">
         <c:forEach var="TypePlane" items="${list}">
             <option selected name="type_id" value="${TypePlane.id}">
-                <c:out value=" ${TypePlane.name_type}"/>
+                <c:out value=" ${TypePlane.nameType}"/>
             </option>
             <option selected name="type_id" value="${plane.id}">
-                <c:out value=" ${plane.typePlane.name_type}"/>
+                <c:out value=" ${plane.typePlane.nameType}"/>
             </option>
         </c:forEach>
     </select>
         <br/>
-        Name plane: <input type="text" name="name_plane" autocomplete="off" value="${plane.name_plane}"class="w3-round-large w3-small" style="width: 100px;height: auto"/><br/>
+        Name plane: <input type="text" name="name_plane" autocomplete="off" value="${plane.namePlane}"class="w3-round-large w3-small" style="width: 100px;height: auto"/><br/>
         <input type="submit" value="Save" class="w3-btn w3-round-large w3-light-grey">
     </form>
     <form action="${pageContext.request.contextPath}/plane" method="post">

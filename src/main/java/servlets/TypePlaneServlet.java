@@ -41,24 +41,24 @@ public class TypePlaneServlet extends HttpServlet {
 
     private void processExceptions(HttpServletRequest req, HttpServletResponse res,  EnumMethods command, String transitionPage) {
         switch (command) {
-            case CREATE:
-                command = EnumMethods.GET_PAGE_CREATE_OR_EDIT;
+            case create:
+                command = EnumMethods.getPageCreateOrEdit;
                 transitionPage = "typePlaneJSP/addTypePlane.jsp";
                 processRequest(req, res, command, transitionPage);
                 break;
-            case INSERT:
-                command = EnumMethods.GET_PAGE_CREATE_OR_EDIT;
+            case insert:
+                command = EnumMethods.getPageCreateOrEdit;
                 transitionPage = req.getParameter("transitionPage");
                 processRequest(req, res, command, transitionPage);
                 break;
-            case DELETE:
-            case SEARCH:
-            case SORT:
-                command = EnumMethods.GET_LIST;
+            case delete:
+            case search:
+            case sort:
+                command = EnumMethods.getList;
                 processRequest(req, res, command, transitionPage);
                 break;
-            case UPDATE:
-                command = EnumMethods.GET_PAGE_CREATE_OR_EDIT;
+            case update:
+                command = EnumMethods.getPageCreateOrEdit;
                 transitionPage = "typePlaneJSP/updateTypePlane.jsp";
                 processRequest(req, res, command, transitionPage);
                 break;
@@ -69,29 +69,29 @@ public class TypePlaneServlet extends HttpServlet {
 
     private void actionSelectionToGet(HttpServletRequest req, HttpServletResponse res, Connection connection, EnumMethods command, String transitionPage) throws BlankFieldException, SQLException, DepartureAndArrivalCityAreTheSameException {
         switch (command) {
-            case GET_LIST:
-            case DROP:
+            case getList:
+            case drop:
                 getList(req, res, connection, transitionPage);
                 break;
-            case GET_PAGE_CREATE_OR_EDIT:
+            case getPageCreateOrEdit:
                 getPageCreateOrEdit(req, res, connection, transitionPage);
                 break;
-            case CREATE:
+            case create:
                 create(req, res, connection, command, transitionPage);
                 break;
-            case DELETE:
+            case delete:
                 remove(req, res, connection, command, transitionPage);
                 break;
-            case UPDATE:
+            case update:
                 update(req, res, connection, command, transitionPage);
                 break;
-            case SEARCH:
+            case search:
                 search(req, res, connection, transitionPage);
                 break;
-            case SORT:
+            case sort:
                 sort(req, res, connection, transitionPage);
                 break;
-            case INSERT:
+            case insert:
                 insert(req, res, connection, command, transitionPage);
             default:
                 break;
@@ -151,7 +151,7 @@ public class TypePlaneServlet extends HttpServlet {
             TypePlaneDAO typePlaneDAO = new TypePlaneDAO(connection);
             typePlane.setNameType(req.getParameter("type_name"));
             typePlaneDAO.create(typePlane);
-            command = EnumMethods.GET_LIST;
+            command = EnumMethods.getList;
             actionSelectionToGet(req, res, connection, command, transitionPage);
         }
     }
@@ -166,7 +166,7 @@ public class TypePlaneServlet extends HttpServlet {
             typePlane.setId(Integer.parseInt(req.getParameter("id")));
             typePlane.setNameType(req.getParameter("type_name"));
             typePlaneDAO.update(typePlane);
-            command = EnumMethods.GET_LIST;
+            command = EnumMethods.getList;
             actionSelectionToGet(req, res, connection, command, transitionPage);
         }
     }
@@ -178,7 +178,7 @@ public class TypePlaneServlet extends HttpServlet {
             TypePlaneDAO typePlaneDAO = new TypePlaneDAO(connection);
             int id = Integer.parseInt(req.getParameter("id"));
             typePlaneDAO.delete(id);
-            command = EnumMethods.GET_LIST;
+            command = EnumMethods.getList;
             actionSelectionToGet(req, res, connection, command, transitionPage);
         }
     }
@@ -187,7 +187,7 @@ public class TypePlaneServlet extends HttpServlet {
         if ((req.getParameter("id_copy") == null) || (req.getParameter("id_copy").equals(""))) {
             throw new BlankFieldException("No copy object");
         } else {
-            command = EnumMethods.GET_PAGE_CREATE_OR_EDIT;
+            command = EnumMethods.getPageCreateOrEdit;
             actionSelectionToGet(req, res, connection, command, transitionPage);
         }
     }

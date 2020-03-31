@@ -29,27 +29,27 @@
     Name city from: <select name="city_from"class="w3-round-large w3-small" style="width: 100px;height: auto">
     <c:forEach var="City" items="${list}">
         <option name="city_from" value="${City.id}">
-            <c:out value=" ${City.name_city}"/>
+            <c:out value=" ${City.nameCity}"/>
         </option>
     </c:forEach>
     <option selected name="city_from" value="${route.from.id}">
-        <c:out value=" ${route.from.name_city}"/>
+        <c:out value=" ${route.from.nameCity}"/>
     </option>
 </select><br/>
 
     Name city to:<select name="city_to"class="w3-round-large w3-small" style="width: 100px;height: auto">
     <c:forEach var="City" items="${list}">
         <option selected name="city_to" value="${City.id}">
-            <c:out value=" ${City.name_city}"/>
+            <c:out value=" ${City.nameCity}"/>
         </option>
     </c:forEach>
     <option selected name="city_to" value="${route.to.id}">
-        <c:out value=" ${route.to.name_city}"/>
+        <c:out value=" ${route.to.nameCity}"/>
     </option>
 </select><br/>
 
     Flight time in minutes: <input type="text" name="travel_minutes" autocomplete="off"
-                                   value="${route.travelTimeMinutes}"class="w3-round-large w3-small" style="width: 100px;height: auto"><br/>
+                                   value="${route.travelTimeMinutes}" class="w3-round-large w3-small" style="width: 100px;height: auto"><br/>
     <button class="w3-btn w3-round w3-light-grey w3-small  w3-hover-grey" type="submit" value="save">
         create
     </button>
