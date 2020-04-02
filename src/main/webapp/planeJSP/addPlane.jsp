@@ -37,12 +37,12 @@
     </select>
         <br/>
         Name plane: <input type="text" name="name_plane" autocomplete="off" value="${plane.namePlane}"class="w3-round-large w3-small" style="width: 100px;height: auto"/><br/>
-        <input type="submit" value="Save" class="w3-btn w3-round-large w3-light-grey">
+        <input type="submit" value="Save" class="w3-btn w3-round-large w3-light-grey w3-small">
     </form>
     <form action="${pageContext.request.contextPath}/plane" method="post">
         <input type="hidden" name="transitionPage" value="planeJSP/addPlane.jsp">
         <input type="hidden" name="id_copy" value="${id_copy_no_on_servlet}">
-        <input type="submit" name="command" value="insert" class="w3-btn w3-round-large w3-light-grey">
+        <input type="submit" name="command" value="insert" class="w3-btn w3-round-large w3-light-grey w3-small">
 
     </form>
 <p><a href='<c:url value="/plane?command=getList" />'>Back</a></p>

@@ -27,12 +27,12 @@
             <input type="hidden" name="command" value="create" class="w3-btn w3-round-large">
 
             Name City: <input type="text" name="name_city" autocomplete="off" value="${city.nameCity}" class="w3-round-large w3-small" style="width: 100px;height: auto"/><br/>
-            <input type="submit" value="Save" class="w3-btn w3-round-large w3-light-grey">
+            <input type="submit" value="Save" class="w3-btn w3-round-large w3-light-grey w3-small">
         </form>
     <form action="${pageContext.request.contextPath}/city" method="post">
         <input type="hidden" name="transitionPage" value="cityJSP/addCity.jsp">
         <input type="hidden" name="id_copy" value="${id_copy_no_on_servlet}">
-        <input type="submit" name="command" value="insert" class="w3-btn w3-round-large w3-light-grey">
+        <input type="submit" name="command" value="insert" class="w3-btn w3-round-large w3-light-grey w3-small">
 
         <input type="hidden" name="id" value="${param.id}">
     </form>

@@ -50,14 +50,14 @@
 
     Flight time in minutes: <input type="text" name="travel_minutes" autocomplete="off"
                                    value="${route.travelTimeMinutes}" class="w3-round-large w3-small" style="width: 100px;height: auto"><br/>
-    <button class="w3-btn w3-round w3-light-grey w3-small  w3-hover-grey" type="submit" value="save">
+    <button class="w3-btn w3-round-large w3-light-grey w3-small " type="submit" value="save">
         create
     </button>
 </form>
 <form action="${pageContext.request.contextPath}/route" method="post">
     <input type="hidden" name="transitionPage" value="routeJSP/updateRoute.jsp">
     <input type="hidden" name="id_copy" value="${id_copy_no_on_servlet}">
-    <button class="w3-btn w3-round w3-light-grey w3-small  w3-hover-grey" name="command" type="submit" value="insert">
+    <button class="w3-btn w3-round-large w3-light-grey w3-small " name="command" type="submit" value="insert">
         insert
     </button>
     <input type="hidden" name="id" value="${param.id}">
