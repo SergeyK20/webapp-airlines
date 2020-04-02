@@ -212,7 +212,7 @@ public class TypePlaneServlet extends HttpServlet {
             desc = "desc";
         }
         EnumNameField nameField = EnumNameField.valueOf(fieldName);
-        if (nameField == EnumNameField.type_name) {
+        if (nameField == EnumNameField.TYPE_NAME) {
             return "order by 2 " + desc;
         }
         return "";
@@ -244,7 +244,7 @@ public class TypePlaneServlet extends HttpServlet {
 
     private String createSQLSearch(String nameField, String searchLine) {
         EnumNameField enumNameField = EnumNameField.valueOf(nameField);
-        if (enumNameField == EnumNameField.type_name) {
+        if (enumNameField == EnumNameField.TYPE_NAME) {
             return "where typea.name_type like ('%" + searchLine + "%')";
         }
         return "";

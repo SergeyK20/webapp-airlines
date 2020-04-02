@@ -1,13 +1,13 @@
 package dao;
 
 public enum EnumNameField {
-    id_flights,
-    from_name,
-    to_name,
-    plane_name,
-    type_name,
-    date_value,
-    time_value,
-    time_travel,
-    city_name;
+    ID_FLIGHTS,
+    FROM_NAME,
+    TO_NAME,
+    PLANE_NAME,
+    TYPE_NAME,
+    DATE_VALUE,
+    TIME_VALUE,
+    TIME_TRAVEL,
+    CITY_NAME;
 }

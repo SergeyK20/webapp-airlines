@@ -42,11 +42,11 @@
     </option>
     </select><br>
 
-    Date: <input type="date" name="date" value="${flight.date}" class="w3-round-large w3-small" style="width: 100px;height: auto"><br>
+    Date: <input type="date" name="date" value="${flight.date}" class="w3-round-large w3-small " style="width: 100px;height: auto"><br>
 
-    time: <input type="time" name="time" value="${flight.time}" class="w3-round-large w3-small" style="width: 100px;height: auto"><br>
+    time: <input type="time" name="time" value="${flight.time}" class="w3-round-large w3-small " style="width: 100px;height: auto"><br>
 
-    Plane:<select name="plane" class="w3-round-large w3-small" style="width: 100px;height: auto">
+    Plane:<select name="plane" class="w3-round-large w3-small " style="width: 100px;height: auto">
     <c:forEach var="Plane" items="${list1}">
         <option value="${Plane.id}">
             <c:out value=" ${Plane.namePlane}"/>
@@ -62,8 +62,8 @@
 <form action="${pageContext.request.contextPath}/flightAll" method="post">
     <input align="center" type="hidden" name="transitionPage" value="airlinesJSP/addAirlines.jsp">
     <input align="center" type="hidden" name="id_copy" value="${id_copy_no_on_servlet}">
-    <input align="center" type="submit" name="command" value="insert">
-    <input align="center" type="submit" value="save" form="create">
+    <input align="center" type="submit" name="command" value="insert" class="w3-btn w3-round-large w3-light-grey">
+    <input align="center" type="submit" value="save" form="create" class="w3-btn w3-round-large w3-light-grey">
 </form>
 <p align="center"><a href='<c:url value="/flightAll?command=getList" />'>Back</a></p>
 <span class="colortext"><c:out value="${errorMessage}"/>

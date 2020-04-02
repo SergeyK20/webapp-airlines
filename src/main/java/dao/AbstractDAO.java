@@ -16,7 +16,7 @@ import java.util.List;
  * @param <K> generic для ключа
  * @param <T> generic для остальных полей таблицы
  */
-public abstract class AbstractDAO <K,T> {
+public abstract class AbstractDAO <T> {
     /**
      * Поле необожимое для подключения к бд.
      */
@@ -33,8 +33,8 @@ public abstract class AbstractDAO <K,T> {
 
     public abstract List<T> findByField(String requestSQL) throws SQLException;
     public abstract List<T> findAll() throws SQLException;
-    public abstract T findEntityById(K id) throws SQLException;
-    public abstract boolean delete(K id) throws SQLException;
+    public abstract T findEntityById(int id) throws SQLException;
+    public abstract boolean delete(int id) throws SQLException;
     public abstract boolean create(T entity) throws SQLIntegrityConstraintViolationException, SQLException, DepartureAndArrivalCityAreTheSameException;
     public abstract boolean update(T entity) throws SQLException, DepartureAndArrivalCityAreTheSameException;
     public void close(Statement st){

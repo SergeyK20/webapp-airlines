@@ -215,7 +215,7 @@ public class CityServlet extends HttpServlet {
             desc = "desc";
         }
         EnumNameField nameField = EnumNameField.valueOf(fieldName);
-        if (nameField == EnumNameField.city_name) {
+        if (nameField == EnumNameField.CITY_NAME) {
             return "order by 2 " + desc;
         }
         return "";
@@ -247,7 +247,7 @@ public class CityServlet extends HttpServlet {
 
     private String createSQLSearch(String nameField, String searchLine) {
         EnumNameField field = EnumNameField.valueOf(nameField);
-        if (field == EnumNameField.city_name) {
+        if (field == EnumNameField.CITY_NAME) {
             return "where city.name_city like ('%" + searchLine + "%')";
         }
         return "";

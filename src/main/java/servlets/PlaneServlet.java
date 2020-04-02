@@ -230,9 +230,9 @@ public class PlaneServlet extends HttpServlet {
         }
         EnumNameField nameField = EnumNameField.valueOf(fieldName);
         switch (nameField) {
-            case plane_name:
+            case PLANE_NAME:
                 return "order by 2 " + desc;
-            case type_name:
+            case TYPE_NAME:
                 return "order by 4 " + desc;
             default:
                 return "";
@@ -267,9 +267,9 @@ public class PlaneServlet extends HttpServlet {
     private String createSQLSearch(String nameField, String searchLine) {
         EnumNameField nameFieldEnum = EnumNameField.valueOf(nameField);
         switch (nameFieldEnum) {
-            case plane_name:
+            case PLANE_NAME:
                 return "where plane.name_plane like ('%" + searchLine + "%')";
-            case type_name:
+            case TYPE_NAME:
                 return "where plane.id_type in (select typea.id from airlines.typea where typea.name_type like ('%" + searchLine + "%'))";
             default:
                 return "";

@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlaneDAO extends AbstractDAO<Integer,Plane>{
+public class PlaneDAO extends AbstractDAO<Plane>{
 
     public PlaneDAO(Connection connection){
         super(connection);
@@ -59,7 +59,7 @@ public class PlaneDAO extends AbstractDAO<Integer,Plane>{
     }
 
     @Override
-    public Plane findEntityById(Integer id) throws SQLException {
+    public Plane findEntityById(int id) throws SQLException {
         PreparedStatement  pst = null;
         Plane  plane = new Plane();
         String sqlFind = "SELECT airlines.plane.Id, airlines.plane.name_plane, airlines.plane.id_type, airlines.typea.name_type " +
@@ -78,7 +78,7 @@ public class PlaneDAO extends AbstractDAO<Integer,Plane>{
     }
 
     @Override
-    public boolean delete(Integer id) throws SQLException {
+    public boolean delete(int id) throws SQLException {
         PreparedStatement pst = null;
         String sqlCreateCity = "DELETE FROM airlines.plane WHERE Id = (?)";
         pst = connection.prepareStatement(sqlCreateCity);

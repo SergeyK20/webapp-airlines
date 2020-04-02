@@ -231,11 +231,11 @@ public class RouteServlet extends HttpServlet {
         }
         EnumNameField nameField = EnumNameField.valueOf(fieldName);
         switch (nameField) {
-            case from_name:
+            case FROM_NAME:
                 return "order by city_from " + desc;
-            case to_name:
+            case TO_NAME:
                 return "order by 5 " + desc;
-            case time_travel:
+            case TIME_TRAVEL:
                 return "order by 6 " + desc;
             default:
                 return "";
@@ -268,11 +268,11 @@ public class RouteServlet extends HttpServlet {
     private String createSQLSearch(String nameField, String searchLine) {
         EnumNameField enumNameField = EnumNameField.valueOf(nameField);
         switch (enumNameField) {
-            case from_name:
+            case FROM_NAME:
                 return "where route.id_from in (select city.id from city where city.name_city like ('%" + searchLine + "%'))";
-            case to_name:
+            case TO_NAME:
                 return "where route.id_to in (select city.id from city where city.name_city like ('%" + searchLine + "%'))";
-            case time_travel:
+            case TIME_TRAVEL:
                 return "where route.time_travel like  ('%" + searchLine + "%')";
             default:
                 return "";

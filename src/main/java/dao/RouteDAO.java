@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RouteDAO extends AbstractDAO<Integer,Route> {
+public class RouteDAO extends AbstractDAO<Route> {
 
     public RouteDAO(Connection connection){
         super(connection);
@@ -62,7 +62,7 @@ public class RouteDAO extends AbstractDAO<Integer,Route> {
     }
 
     @Override
-    public Route findEntityById(Integer id) throws SQLException {
+    public Route findEntityById(int id) throws SQLException {
         PreparedStatement  pst = null;
         Route route = new Route();
         String sqlFind = "SELECT route.Id, route.id_from, route.id_to, city1.name_city as City_from, city2.name_city as City_to, route.time_travel From airlines.route inner join airlines.city as city1 on route.id_from = city1.Id inner join airlines.city as city2 on route.id_to = city2.Id WHERE ROUTE.Id = ?;";
@@ -82,7 +82,7 @@ public class RouteDAO extends AbstractDAO<Integer,Route> {
     }
 
     @Override
-    public boolean delete(Integer id) throws SQLException {
+    public boolean delete(int id) throws SQLException {
         PreparedStatement pst = null;
         String sqlCreateCity = "DELETE FROM airlines.route WHERE Id = (?)";
         pst = connection.prepareStatement(sqlCreateCity);

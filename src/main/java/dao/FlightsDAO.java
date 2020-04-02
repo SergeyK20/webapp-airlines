@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FlightsDAO extends AbstractDAO<Integer, Flights> {
+public class FlightsDAO extends AbstractDAO<Flights> {
 
     public FlightsDAO(Connection connection) {
         super(connection);
@@ -77,7 +77,7 @@ public class FlightsDAO extends AbstractDAO<Integer, Flights> {
     }
 
     @Override
-    public Flights findEntityById(Integer id) throws SQLException {
+    public Flights findEntityById(int id) throws SQLException {
         PreparedStatement pst = null;
         Flights flights = null;
         String sqlFind = "SELECT flights.id, flights.id_flights, flights.id_route, route.id_from, route.id_to, city1.name_city as City_from, city2.name_city as City_to, route.time_travel, flights.date, flights.time, flights.id_plane, plane.name_plane ,plane.id_type, typea.name_type From airlines.route inner join  airlines.city as city1 on route.id_from = city1.Id inner join airlines.city as city2 on route.id_to = city2.Id inner join airlines.flights on flights.id_route = route.Id inner join airlines.plane on plane.Id = flights.id_plane inner join airlines.typea on typea.Id = plane.id_type WHERE flights.id = ?";
@@ -102,7 +102,7 @@ public class FlightsDAO extends AbstractDAO<Integer, Flights> {
     }
 
     @Override
-    public boolean delete(Integer id) throws SQLException {
+    public boolean delete(int id) throws SQLException {
         PreparedStatement pst = null;
         String sqlCreateCity = "DELETE FROM airlines.flights WHERE Id = (?)";
         pst = connection.prepareStatement(sqlCreateCity);

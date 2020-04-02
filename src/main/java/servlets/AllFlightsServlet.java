@@ -326,21 +326,21 @@ public class AllFlightsServlet extends HttpServlet {
     private String createSQLSearch(String nameField, String searchLine) {
         EnumNameField field = EnumNameField.valueOf(nameField);
         switch (field) {
-            case id_flights:
+            case ID_FLIGHTS:
                 return "where flights.id_flights like ('%" + searchLine + "%')";
-            case from_name:
+            case FROM_NAME:
                 return "where flights.id_route in ( select route.id FROM  route where route.id_to in (select Id from city where name_city like ('%" + searchLine + "%')))";
-            case to_name:
+            case TO_NAME:
                 return "where flights.id_route in ( select route.id FROM  route where route.id_from in (select Id from city where name_city like ('%" + searchLine + "%')))";
-            case plane_name:
+            case PLANE_NAME:
                 return "where flights.id_plane in(select plane.id FROM plane where plane.name_plane like ('%" + searchLine + "%'))";
-            case type_name:
+            case TYPE_NAME:
                 return "where flights.id_plane in(select plane.id FROM plane where plane.id_type in(select Id from typea where typea.name_type like('%" + searchLine + "%')))";
-            case date_value:
+            case DATE_VALUE:
                 return "where flights.date like ('%" + searchLine + "%')";
-            case time_value:
+            case TIME_VALUE:
                 return "where flights.time like ('%" + searchLine + "%')";
-            case time_travel:
+            case TIME_TRAVEL:
                 return "where flights.id_route in ( select route.id FROM  route where route.time_travel like ('%" + searchLine + "%')";
             default:
                 return "";
@@ -371,21 +371,21 @@ public class AllFlightsServlet extends HttpServlet {
         }
         EnumNameField nameField = EnumNameField.valueOf(fieldName);
         switch (nameField) {
-            case id_flights:
+            case ID_FLIGHTS:
                 return "order by 2 " + desc;
-            case from_name:
+            case FROM_NAME:
                 return "order by 7 " + desc;
-            case to_name:
+            case TO_NAME:
                 return "order by 6 " + desc;
-            case plane_name:
+            case PLANE_NAME:
                 return "order by 12 " + desc;
-            case type_name:
+            case TYPE_NAME:
                 return "order by 14 " + desc;
-            case date_value:
+            case DATE_VALUE:
                 return "order by 9 " + desc;
-            case time_value:
+            case TIME_VALUE:
                 return "order by 10 " + desc;
-            case time_travel:
+            case TIME_TRAVEL:
                 return "order by 8 " + desc;
             default:
                 return "";
