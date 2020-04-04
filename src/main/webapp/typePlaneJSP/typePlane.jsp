@@ -33,7 +33,7 @@
            style="width: auto;height: auto">
     <%--Раскрывающийся список полей для поиска--%>
     <%--Параметры передающиеся с поиском--%>
-    <input type="hidden" name="name_field" value="type_name" form="search">
+    <input type="hidden" name="name_field" value="TYPE_NAME" form="search">
         <button class="w3-btn w3-round w3-light-grey w3-small  w3-hover-grey" type="submit" value="search" form="search">
             search
         </button>
@@ -69,7 +69,7 @@
         <td>
             <form action="${pageContext.request.contextPath}/typePlane" method="post">
                 <input type="hidden" name="command" value="sort">
-                <input type="hidden" name="field_name" value="type_name">
+                <input type="hidden" name="field_name" value="TYPE_NAME">
                 <button class="w3-round-large w3-btn-floating w3-teal w3-grey w3-border" type="submit" name="view"
                         value="sort ascending">▼
                 </button>

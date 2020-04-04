@@ -28,7 +28,7 @@ public class FlightsDAO extends AbstractDAO<Flights> {
                 "                 (select typea.id from typea where typea.id = (select plane.id_type from plane where plane.id = flights.id_plane)) as type_id,\n" +
                 "\t\t\t\t (select typea.name_type from typea where typea.id = (select plane.id_type from plane where plane.id = flights.id_plane)) as type_name\n" +
                 "    FROM flights \n" +
-                    requestSQL+";");
+                    requestSQL +";");
         pst = connection.prepareStatement(sqlFind);
         ResultSet resultSet = pst.executeQuery();
         while (resultSet.next()) {

@@ -224,7 +224,7 @@ public class TypePlaneServlet extends HttpServlet {
             throw new BlankFieldException("No value entered");
         } else {
             String search = req.getParameter("text_search");
-            String nameField = req.getParameter("nameField");
+            String nameField = req.getParameter("name_field");
             String requestSQL = createSQLSearch(nameField, search);
             getListSearchAndSort(req, res, connection, requestSQL, transitionPage);
         }

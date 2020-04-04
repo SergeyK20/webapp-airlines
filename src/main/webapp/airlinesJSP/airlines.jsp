@@ -27,14 +27,14 @@
            style="width: auto;height: auto">
     <%--Раскрывающийся список полей для поиска--%>
     <select class="w3-round-large w3-select w3-small" name="name_field" form="search" style=" width: auto">
-        <option selected value="id_flights">Id flights</option>
-        <option value="from_name">From city</option>
-        <option value="to_name">To city</option>
-        <option value="plane_name">Plane name</option>
-        <option value="type_name">Type name</option>
-        <option value="date_value">Date</option>
-        <option value="time_value">Time</option>
-        <option value="time_travel">Time travel</option>
+        <option selected value="ID_FLIGHTS">Id flights</option>
+        <option value="FROM_NAME">From city</option>
+        <option value="TO_NAME">To city</option>
+        <option value="PLANE_NAME">Plane name</option>
+        <option value="TYPE_NAME">Type name</option>
+        <option value="DATE_VALUE">Date</option>
+        <option value="TIME_VALUE">Time</option>
+        <option value="TIME_TRAVEL">Time travel</option>
     </select>
     <%--Параметры передающиеся с поиском--%>
     <%--<input class="button" type="submit" value="search" form="search">
@@ -79,7 +79,7 @@
         <td>
             <form action="${pageContext.request.contextPath}/flightAll" method="post">
                 <input type="hidden" name="command" value="sort">
-                <input type="hidden" name="field_name" value="id_flights">
+                <input type="hidden" name="field_name" value="ID_FLIGHTS">
                 <button class="w3-round-large w3-btn-floating w3-teal w3-grey w3-border" type="submit" name="view"
                         value="sort ascending">▼
                 </button>
@@ -93,7 +93,7 @@
         <td>
             <form action="${pageContext.request.contextPath}/flightAll" method="post">
                 <input type="hidden" name="command" value="sort">
-                <input type="hidden" name="field_name" value="from_name">
+                <input type="hidden" name="field_name" value="FROM_NAME">
                 <button class="w3-round-large w3-btn-floating w3-teal w3-grey w3-border" type="submit" name="view"
                         value="sort ascending">▼
                 </button>
@@ -105,7 +105,7 @@
         <td>
             <form action="${pageContext.request.contextPath}/flightAll" method="post">
                 <input type="hidden" name="command" value="sort">
-                <input type="hidden" name="field_name" value="to_name">
+                <input type="hidden" name="field_name" value="TO_NAME">
                 <button class="w3-round-large w3-btn-floating w3-teal w3-grey w3-border" type="submit" name="view"
                         value="sort ascending">▼
                 </button>
@@ -117,7 +117,7 @@
         <td>
             <form action="${pageContext.request.contextPath}/flightAll" method="post">
                 <input type="hidden" name="command" value="sort">
-                <input type="hidden" name="field_name" value="time_travel">
+                <input type="hidden" name="field_name" value="TIME_TRAVEL">
                 <button class="w3-round-large w3-btn-floating w3-teal w3-grey w3-border" type="submit" name="view"
                         value="sort ascending">▼
                 </button>
@@ -129,7 +129,7 @@
         <td>
             <form action="${pageContext.request.contextPath}/flightAll" method="post">
                 <input type="hidden" name="command" value="sort">
-                <input type="hidden" name="field_name" value="date_value">
+                <input type="hidden" name="field_name" value="DATE_VALUE">
                 <button class="w3-round-large w3-btn-floating w3-teal w3-grey w3-border" type="submit" name="view"
                         value="sort ascending">▼
                 </button>
@@ -141,7 +141,7 @@
         <td>
             <form action="${pageContext.request.contextPath}/flightAll" method="post">
                 <input type="hidden" name="command" value="sort">
-                <input type="hidden" name="field_name" value="time_value">
+                <input type="hidden" name="field_name" value="TIME_VALUE">
                 <button class="w3-round-large w3-btn-floating w3-teal w3-grey w3-border" type="submit" name="view"
                         value="sort ascending">▼
                 </button>
@@ -153,7 +153,7 @@
         <td>
             <form action="${pageContext.request.contextPath}/flightAll" method="post">
                 <input type="hidden" name="command" value="sort">
-                <input type="hidden" name="field_name" value="plane_name">
+                <input type="hidden" name="field_name" value="PLANE_NAME">
                 <button class="w3-round-large w3-btn-floating w3-teal w3-grey w3-border" type="submit" name="view"
                         value="sort ascending">▼
                 </button>
@@ -165,7 +165,7 @@
         <td>
             <form action="${pageContext.request.contextPath}/flightAll" method="post">
                 <input type="hidden" name="command" value="sort">
-                <input type="hidden" name="field_name" value="type_name">
+                <input type="hidden" name="field_name" value="TYPE_NAME">
                 <button class="w3-round-large w3-btn-floating w3-teal w3-grey w3-border" type="submit" name="view"
                         value="sort ascending">▼
                 </button>

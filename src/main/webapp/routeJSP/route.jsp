@@ -33,9 +33,9 @@
            style="width: auto;height: auto">
     <%--Раскрывающийся список полей для поиска--%>
     <select class="w3-round-large w3-select w3-small" name="name_field" form="search" style=" width: auto">
-        <option value="from_name">From city</option>
-        <option value="to_name">To city</option>
-        <option value="time_travel">Time travel</option>
+        <option value="FROM_NAME">From city</option>
+        <option value="TO_NAME">To city</option>
+        <option value="TIME_TRAVEL">Time travel</option>
     </select>
     <%--Параметры передающиеся с поиском--%>
     <button class="w3-btn w3-round w3-light-grey w3-small  w3-hover-grey" type="submit" value="search" form="search">
@@ -74,7 +74,7 @@
             <td>
                 <form action="${pageContext.request.contextPath}/route" method="post">
                     <input type="hidden" name="command" value="sort">
-                    <input type="hidden" name="field_name" value="from_name">
+                    <input type="hidden" name="field_name" value="FROM_NAME">
                     <button class="w3-round-large w3-btn-floating w3-teal w3-grey w3-border" type="submit" name="view"
                             value="sort ascending">▼
                     </button>
@@ -86,7 +86,7 @@
             <td>
                 <form action="${pageContext.request.contextPath}/route" method="post">
                     <input type="hidden" name="command" value="sort">
-                    <input type="hidden" name="field_name" value="to_name">
+                    <input type="hidden" name="field_name" value="TO_NAME">
                     <button class="w3-round-large w3-btn-floating w3-teal w3-grey w3-border" type="submit" name="view"
                             value="sort ascending">▼
                     </button>
@@ -98,7 +98,7 @@
             <td>
                 <form action="${pageContext.request.contextPath}/route" method="post">
                     <input type="hidden" name="command" value="sort">
-                    <input type="hidden" name="field_name" value="time_travel">
+                    <input type="hidden" name="field_name" value="TIME_TRAVEL">
                     <button class="w3-round-large w3-btn-floating w3-teal w3-grey w3-border" type="submit" name="view"
                             value="sort ascending">▼
                     </button>

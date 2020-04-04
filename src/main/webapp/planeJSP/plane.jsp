@@ -33,8 +33,8 @@
            style="width: auto;height: auto">
     <%--Раскрывающийся список полей для поиска--%>
     <select class="w3-round-large w3-select w3-small" name="name_field" form="search" style=" width: auto">
-        <option value="plane_name">Plane name</option>
-        <option value="type_name">Type name</option>
+        <option value="PLANE_NAME">Plane name</option>
+        <option value="TYPE_NAME">Type name</option>
     </select>
     <%--Параметры передающиеся с поиском--%>
         <button class="w3-btn w3-round w3-light-grey w3-small  w3-hover-grey" type="submit" value="search" form="search">
@@ -72,7 +72,7 @@
         <td>
             <form action="${pageContext.request.contextPath}/plane" method="post">
                 <input type="hidden" name="command" value="sort">
-                <input type="hidden" name="field_name" value="plane_name">
+                <input type="hidden" name="field_name" value="PLANE_NAME">
                 <button class="w3-round-large w3-btn-floating w3-teal w3-grey w3-border" type="submit" name="view"
                         value="sort ascending">▼
                 </button>
@@ -84,7 +84,7 @@
         <td>
             <form action="${pageContext.request.contextPath}/plane" method="post">
                 <input type="hidden" name="command" value="sort">
-                <input type="hidden" name="field_name" value="type_name">
+                <input type="hidden" name="field_name" value="TYPE_NAME">
                 <button class="w3-round-large w3-btn-floating w3-teal w3-grey w3-border" type="submit" name="view"
                         value="sort ascending">▼
                 </button>
